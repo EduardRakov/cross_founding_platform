@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} registration {% endblock %}
+
+{% block content %}
+    <div style="margin: auto; float: inherit">
+        <h2 style="font-family: Courier;color: #9999A5; height:50px; width: 600px; margin: auto; padding-top: 20px; text-align: center">Create your account</h2>
+        <form action="" method="post" class="well" style="background: none repeat scroll 0% 0% rgb(238, 238, 238); border-width: 0px;width: 450px; margin: auto;">{% csrf_token %}
+            <input value="asdasd" class="input-block-level">
+            <br>
+            <input value="qweqwe" class="input-block-level">
+            <hr style="background-color: #c4c1b7; color: #000000; border: none">
+            <input value="asdwe" class="input-block-level">
+            <br>
+            By creating an account, I accept CFP's <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+            <br>
+            <input type="submit" value="Create Account" class="btn" style="float:right; width: 100px; height: 40px">
+        </form>
+    </div>
+{% endblock %}

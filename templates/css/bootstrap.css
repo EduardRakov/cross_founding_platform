@@ -1549,6 +1549,27 @@ select:focus:required:invalid:focus {
   color: #595959;
 }
 
+.twitter_24 {
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAWCAYAAADeiIy1AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NkQxMjFGREUwOUM3MTFFMkI0NUE5QkM5MkVBM0UxMkUiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Rjc4REIzN0EwQTA0MTFFMkI0NUE5QkM5MkVBM0UxMkUiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2RDEyMUZEQzA5QzcxMUUyQjQ1QTlCQzkyRUEzRTEyRSIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2RDEyMUZERDA5QzcxMUUyQjQ1QTlCQzkyRUEzRTEyRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PjwaJvMAAAHzSURBVHjarNbfS1NhGMDx/WIhzcFoynJkUbjoLhRWXSiCV9145UUhgffdlH+AF9F/0EU30k9QUPt1XU4EMSi6CqWVThEbdNGYk1XY6vh94hk7rbNz3rU98HFHeM+e53l9z3P0W5blayFO4SpGEcdHzGMO33RNBGd8kgjDOK/Xpi7gHX5bf0cFMziLETzDLbkhgoze1GuYpA9Zyz1K+rmC7gBtRdGDfjxF2mO7griBlMe6Tuwhi0mpLolPtkryuI5wg24S+GyZxQF+4KbcGMWrugWy76u4gjj8tkQph79LoyhgTO4L0VZJT8qIrW0/Lqk1vMQbbCKGnwgbnMoPyPy5IlsIMUwbVCoV7ujJMgnZlS7pSA5DAne0gq8eFUo3J/RAmEQeZbkI6YN1Tk/dL197Y6P64EpHBTy2Hd12hYyc9eovAf18hCdt7mYLr2tpa8f2GG5jt4nj6xb37I9FwFaB7GUOy7aB+L8hj8xD3b5/OgrihdWeeFA/UerHy0m8bTFJzmk4O80ySXZX59n3JpMUcdlpRrq9Ck5jtokkZYw3+j75EXCYzvLCWtDpaxJfcM3tHSaTYQiD6NARk9YpYRqLmMKq26KQzqMjmMDxJhIs4T6eY99rsd/2z4kM1wHt8CKSOKrTo6Jftq2VS5L3KJpWdSjAALebOa/wFrEQAAAAAElFTkSuQmCC");
+    display: inline-block;
+    height: 22px;
+    width: 26px;
+}
+
+.facebook_24 {
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NUZFNjc0NUI5ODgwMTFFMUIzMTFFRDhFRUNDQTVDNjMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NUZFNjc0NUM5ODgwMTFFMUIzMTFFRDhFRUNDQTVDNjMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo1RkU2NzQ1OTk4ODAxMUUxQjMxMUVEOEVFQ0NBNUM2MyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo1RkU2NzQ1QTk4ODAxMUUxQjMxMUVEOEVFQ0NBNUM2MyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pqg5E60AAAC2SURBVHjaYvz//z8DLQELGXq0gJgTif8CiJ/iVA3yAZHYFYgf/scE7fj0EesDMyDeAsRspHqXiUh1veQYTkocaKHxfwHxeiD+CMSn8OokMvw/oIX7BGLjjonM1Ped2nFAk3xgAMRzoGweNDkPIBZC4jfhyguMeHKyDRAfJsKRf4GYF1ewUSOIbuKLE2pYcIEayfQhKcUDNZIpw6BJpqMWjFpAOWAkslWhi1aj4a/oybCAbAAQYAAEQQQmZKPNuwAAAABJRU5ErkJggg==");
+    background-origin: padding-box;
+    background-position: 0 0;
+    background-repeat: repeat;
+    background-size: auto auto;
+    display: inline-block;
+    height: 24px;
+    width: 24px;
+}
+
 .help-block {
   display: block;
   margin-bottom: 10px;
@@ -1725,8 +1746,6 @@ input.search-query {
      -moz-border-radius: 15px;
           border-radius: 15px;
 }
-
-/* Allow for input prepend/append in search forms */
 
 .form-search .input-append .search-query,
 .form-search .input-prepend .search-query {
@@ -5891,12 +5910,15 @@ a.badge:hover {
 .affix {
   position: fixed;
 }
+
 .error {
     color: #ff4500;
 }
+
 div.alert.alert-error input {
     background-color: #ffc0cb;
 }
+
 input.error {
     background-color: #ffc0cb;
     border-color: #ff4500;
