@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User, UserManager
 
 class Project(models.Model):
     name = models.CharField(max_length=20)
@@ -8,18 +9,10 @@ class Project(models.Model):
         return self.name
 
 class Backer(models.Model):
-    pass
+    test_field = models.CharField(max_length=10)
 
-class User(models.Model):
-    user_name = models.CharField(max_length=20, unique=True)
-    full_name = models.CharField(max_length=50)
-    e_mail = models.EmailField(unique=True)
-    password = models.CharField(max_length=20)
-    gender = models.CharField(max_length=10)
-    date_of_birth = models.DateField()
+class CustomUser(User):
     location = models.CharField(max_length=20)
     project_owner = models.ForeignKey(Project)
     backer = models.ForeignKey(Backer)
-
-    def __unicode__(self):
-        return self.user_name
+    objects = UserManager()
