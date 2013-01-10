@@ -11,8 +11,11 @@ class Project(models.Model):
 class Backer(models.Model):
     test_field = models.CharField(max_length=10)
 
+    def __unicode__(self):
+        return self.test_field
+
 class CustomUser(User):
     location = models.CharField(max_length=20)
-    project_owner = models.ForeignKey(Project)
-    backer = models.ForeignKey(Backer)
+    project_owner = models.ForeignKey(Project, null=True)
+    backer = models.ForeignKey(Backer, null=True)
     objects = UserManager()
