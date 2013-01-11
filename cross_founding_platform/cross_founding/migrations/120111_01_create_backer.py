@@ -8,40 +8,18 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Project'
-        db.create_table('cross_founding_project', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('description', self.gf('django.db.models.fields.CharField')(max_length=20)),
-        ))
-        db.send_create_signal('cross_founding', ['Project'])
-
         # Adding model 'Backer'
         db.create_table('cross_founding_backer', (
-            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('test_field', self.gf('django.db.models.fields.CharField')(max_length=10)),
+            ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('dob_at', self.gf('django.db.models.fields.DateField')()),
+            ('location', self.gf('django.db.models.fields.CharField')(max_length=150)),
         ))
         db.send_create_signal('cross_founding', ['Backer'])
 
-        # Adding model 'CustomUser'
-        db.create_table('cross_founding_customuser', (
-            ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=20)),
-            ('project_owner', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['cross_founding.Project'])),
-            ('backer', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['cross_founding.Backer'])),
-        ))
-        db.send_create_signal('cross_founding', ['CustomUser'])
-
 
     def backwards(self, orm):
-        # Deleting model 'Project'
-        db.delete_table('cross_founding_project')
-
         # Deleting model 'Backer'
         db.delete_table('cross_founding_backer')
-
-        # Deleting model 'CustomUser'
-        db.delete_table('cross_founding_customuser')
 
 
     models = {
@@ -82,22 +60,10 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'cross_founding.backer': {
-            'Meta': {'object_name': 'Backer'},
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'test_field': ('django.db.models.fields.CharField', [], {'max_length': '10'})
-        },
-        'cross_founding.customuser': {
-            'Meta': {'object_name': 'CustomUser', '_ormbases': ['auth.User']},
-            'backer': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cross_founding.Backer']"}),
-            'location': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'project_owner': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cross_founding.Project']"}),
+            'Meta': {'object_name': 'Backer', '_ormbases': ['auth.User']},
+            'dob_at': ('django.db.models.fields.DateField', [], {}),
+            'location': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
             'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
-        },
-        'cross_founding.project': {
-            'Meta': {'object_name': 'Project'},
-            'description': ('django.db.models.fields.CharField', [], {'max_length': '20'}),
-            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '20'})
         }
     }
 
