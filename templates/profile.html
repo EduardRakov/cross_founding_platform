@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <table class="table table-striped">
+        <tbody>
+        <tr>
+            <td>#</td>
+            <td>Username</td>
+            <td>First name</td>
+            <td>Last name</td>
+            <td>e-mail</td>
+            <td>password</td>
+            <td>Gender</td>
+            <td>Date of birth</td>
+        </tr>
+        {% for student in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ backer.first_name }}</td>
+                <td>{{ backer.last_name }}</td>
+                <td>{{ backer.e_mail }}</td>
+                <td>{{ backer.password }}</td>
+                <td>{{ backer.gender }}</td>
+                <td>{{ backer.dob_at }}</td>
+                <td><a href="/student_registration/{{ backer.id }}/student_form">Edit</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

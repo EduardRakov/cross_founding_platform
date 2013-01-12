@@ -11,8 +11,9 @@ class Migration(SchemaMigration):
         # Adding model 'Backer'
         db.create_table('cross_founding_backer', (
             ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('gender', self.gf('django.db.models.fields.CharField')(max_length=10)),
             ('dob_at', self.gf('django.db.models.fields.DateField')()),
-            ('location', self.gf('django.db.models.fields.CharField')(max_length=150)),
+            ('location', self.gf('django.db.models.fields.CharField')(max_length=50)),
         ))
         db.send_create_signal('cross_founding', ['Backer'])
 
@@ -62,7 +63,8 @@ class Migration(SchemaMigration):
         'cross_founding.backer': {
             'Meta': {'object_name': 'Backer', '_ormbases': ['auth.User']},
             'dob_at': ('django.db.models.fields.DateField', [], {}),
-            'location': ('django.db.models.fields.CharField', [], {'max_length': '150'}),
+            'gender': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
+            'location': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         }
     }

@@ -34,16 +34,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '/home/student1/PycharmProjects/cross_founding_platform/templates'
+MEDIA_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/templates'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/home/student1/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
+STATIC_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    '/home/student1/PycharmProjects/cross_founding_platform/templates',
+    '/home/eddie/PycharmProjects/cross_founding_platform/templates',
 )
 
 STATICFILES_FINDERS = (
@@ -79,7 +79,7 @@ ROOT_URLCONF = 'cross_founding_platform.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/student1/PycharmProjects/cross_founding_platform/templates',)
+TEMPLATE_DIRS = ('/home/eddie/PycharmProjects/cross_founding_platform/templates',)
 
 INSTALLED_APPS = (
     'django.contrib.auth',

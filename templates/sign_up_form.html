@@ -1,9 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+
+{% block content %}
+<form id="studentForm" action="" method="POST" class="form-actions">
+    {% for field in backer_form %}
+        <dt>{{ field.label_tag }}</dt>
+        <div {% if field.errors %}class="alert alert-error"{% endif %}>
+            <dd>{{ field }}</dd>
+        </div>
+    {% endfor %}
+    <br/><input type="submit" class="btn btn-primary" value="Save">
+    <input type="reset" class="btn" value="clear">
+</form>
+{% endblock %}
