@@ -34,16 +34,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/templates'
+MEDIA_ROOT = '/home/student1/PycharmProjects/cross_founding_platform/templates'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
+STATIC_ROOT = '/home/student1/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    '/home/eddie/PycharmProjects/cross_founding_platform/templates',
+    '/home/student1/PycharmProjects/cross_founding_platform/templates',
 )
 
 STATICFILES_FINDERS = (
@@ -67,7 +67,7 @@ AUTH_PROFILE_MODULE = 'models.Backer'
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+#    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
@@ -79,7 +79,15 @@ ROOT_URLCONF = 'cross_founding_platform.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/eddie/PycharmProjects/cross_founding_platform/templates',)
+TEMPLATE_DIRS = ('/home/student1/PycharmProjects/cross_founding_platform/templates',)
+
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'info@google.ru'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -94,7 +102,10 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'cross_founding_platform.cross_founding',
     'south',
+    'registration',
     )
+
+ACCOUNT_ACTIVATION_DAYS = 2
 
 LOGGING = {
     'version': 1,

@@ -21,8 +21,8 @@ def sign_up_form(request, student_id=None):
         backer_form = BackerForm(request.POST, instance=backer)
         if backer_form.is_valid():
             backer_form.save()
-            return HttpResponseRedirect("/student_registration/show_students")
+            return HttpResponseRedirect("")
     else:
         backer_form = BackerForm(instance=backer)
 
-    return render_to_response("sign_up_form.html", { "backer_form": backer_form})
+    return render_to_response("registration/registration_form.html", { "backer_form": backer_form})

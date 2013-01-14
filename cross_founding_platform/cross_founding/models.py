@@ -3,8 +3,9 @@ from django.contrib.auth.models import User, UserManager
 
 
 class Backer(User):
-    gender = models.CharField(max_length=6)
+    gender = models.CharField(max_length=2)
     dob_at = models.DateField()
-    location = models.CharField(max_length=50)
+    profession = models.CharField(blank=True, max_length=15)
+    location = models.CharField(max_length=16)
 
     objects = UserManager()

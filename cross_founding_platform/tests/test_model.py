@@ -1,9 +1,7 @@
-from _mysql_exceptions import IntegrityError
 from django.test import TestCase
 from cross_founding_platform.cross_founding.models import Backer
 
 class BackerTestCase(TestCase):
-
     def setUp(self):
         self.backer = Backer.objects.create(
             username = "joedoe",

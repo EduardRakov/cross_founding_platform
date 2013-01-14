@@ -1,0 +1,4 @@
+Hello and welcome as a member of {{ site }}.
+To complete your registration, please click on the link below.
+{{ site }}/accounts/activate/{{ activation_key }}/
+Thanks!
