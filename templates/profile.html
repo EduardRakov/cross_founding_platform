@@ -14,12 +14,13 @@
             <td>Gender</td>
             <td>Date of birth</td>
         </tr>
-        {% for student in students %}
+        {% for backer in backer %}
             <tr>
                 <td>{{ forloop.counter }}</td>
+                <td>{{ backer.username }}</td>
                 <td>{{ backer.first_name }}</td>
                 <td>{{ backer.last_name }}</td>
-                <td>{{ backer.e_mail }}</td>
+                <td>{{ backer.email }}</td>
                 <td>{{ backer.password }}</td>
                 <td>{{ backer.gender }}</td>
                 <td>{{ backer.dob_at }}</td>
