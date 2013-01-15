@@ -103,6 +103,7 @@ INSTALLED_APPS = (
     'cross_founding_platform.cross_founding',
     'south',
     'registration',
+    'django_nose',
     )
 
 ACCOUNT_ACTIVATION_DAYS = 2
@@ -130,3 +131,5 @@ LOGGING = {
             },
         }
 }
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

@@ -43,6 +43,7 @@ class BackerTestCase(TestCase):
         self.assertEqual(self.backer.is_superuser, "0")
         self.assertEqual(self.backer.location, "NY")
 
+        print "test"
     def test_should_unique_username(self):
 
         try:
