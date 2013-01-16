@@ -62,8 +62,6 @@ TEMPLATE_LOADERS = (
     #     'django.template.loaders.eggs.Loader',
     )
 
-AUTH_PROFILE_MODULE = 'models.Backer'
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -105,6 +103,8 @@ INSTALLED_APPS = (
     'registration',
     'django_nose',
     )
+
+AUTH_PROFILE_MODULE = 'cross_founding.model.backer'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 

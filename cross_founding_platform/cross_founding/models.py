@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User, UserManager
 
-
 class Backer(User):
     gender = models.CharField(max_length=2)
     dob_at = models.DateField()
