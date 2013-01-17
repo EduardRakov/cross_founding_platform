@@ -1,21 +1,156 @@
 {% extends 'base.html' %}
 
 {% block title %} Sign Up form {% endblock %}
-{% block content %}
-    <h1>Registration</h1>
-    <form method="post" action="">
-        <dl class="register">
-            {% for field in form %}
-                <dt>{{ field.label_tag }}</dt>
-                <dd class="clearfix">{{ field }}
-                    {% if field.help_text %}
-                        <div class="clearfix">{{ field.help_text }}</div>{% endif %}
-                    {% if field.errors %}
-                        <div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}
-                </dd>
-            {% endfor %}
-        </dl>
-        <input type="submit" value="Sign Up">
-    </form>
+{#{% block content %}#}
+{##}
+{#    <form method="post" action="">#}
+{#        <dl class="register">#}
+{#            {% for field in form %}#}
+{#                <dt>{{ field.label_tag }}</dt>#}
+{#                <dd class="clearfix">{{ field }}#}
+{#                    {% if field.help_text %}#}
+{#                        <div class="clearfix">{{ field.help_text }}</div>{% endif %}#}
+{#                    {% if field.errors %}#}
+{#                        <div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}#}
+{#                </dd>#}
+{#            {% endfor %}#}
+{#        </dl>#}
+{#        <input type="submit" value="Sign Up">#}
+{#    </form>#}
+{##}
+{#{% endblock %}#}
 
+{% block content %}
+    {% if form.errors %}
+
+        <div style="height: 240px; width: 470px; margin-left: 580px; margin-top: 30px;" class="alert alert-error">
+            <div style="width: 200px; float: left">
+                {% if form.username.errors %}
+                    {{ form.username.label }}
+                    {{ form.username.errors }}
+                {% endif %}
+                {% if form.password1.errors %}
+                    {{ form.password1.label }}
+                    {{ form.password1.errors }}
+                {% endif %}
+                {% if form.first_name.errors %}
+                    {{ form.first_name.label }}
+                    {{ form.first_name.errors }}
+                {% endif %}
+                {% if form.gender.errors %}
+                    {{ form.gender.label }}
+                    {{ form.gender.errors }}
+                {% endif %}
+            </div>
+            <div style="float: right; width: 220px;" >
+
+                {% if form.email.errors %}
+                    {{ form.email.label }}
+                    {{ form.email.errors }}
+                {% endif %}
+                {% if  form.dob.errors%}
+                    {{ form.dob.label }}
+                    {{ form.dob.errors }}
+                {% endif %}
+                {% if form.last_name.errors%}
+                    {{ form.last_name.label }}
+                    {{ form.last_name.errors }}
+                {% endif %}
+                {% if form.profession.errors%}
+                    {{ form.profession.label }}
+                    {{ form.profession.errors }}
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+    <section class="main-section" style="">
+        <article class="my-article">
+            <h1 class="header">Sign up</h1>
+
+            <aside class="main-aside">
+                <button id="facebook" class="btn" style="background:#3b5998;">
+                    <div>
+                        <div>
+                            <i class="facebook_24"></i>
+                        </div>
+                        <div class="facebook-btn-div">
+                            <span class="facebook-btn-span">Sign in with Facebook</span>
+                        </div>
+                    </div>
+                </button>
+                <p></p>
+                <button id="twitter" class="btn" style="background: #22b8e9;">
+                    <div>
+                        <div>
+                            <i class="twitter_24"></i>
+                        </div>
+                        <div class="twitter-btn-div">
+                            <span class="twitter-btn-span">Sign in with Twitter</span>
+                        </div>
+                    </div>
+                </button>
+            </aside>
+
+{#                {% for field in form %}#}
+{#                    {% if field.errors %}#}
+{#                        <div style="width: 100%; text-align: left"><p>{{ field.label }}: {{ field.errors }}</p></div>#}
+{#                    {% endif %}#}
+{#                {% endfor %}#}
+
+
+            <div class="main">
+                <form id="signupForm" method="post" class="well form" style="margin-bottom: 10%; position: absolute; width: 35%;">{% csrf_token %}
+                    <div class="left-block">
+{##}
+{#                        {% for field in form %}#}
+{#                            <dt>{{ field.label_tag }}</dt>#}
+{#                            <dd class="clearfix">{{ field }}#}
+{#                                {% if field.help_text %}#}
+{#                                    <div class="clearfix">{{ field.help_text }}</div>{% endif %}#}
+{#                                {% if field.errors %}#}
+{#                                    <div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}#}
+{#                            </dd>#}
+{#                        {% endfor %}#}
+                        {{ form.username.label }}
+                        {{ form.username }}
+                        {{ form.password1.label }}
+                        {{ form.password1 }}
+                        {{ form.first_name.label }}
+                        {{ form.first_name }}
+                        {{ form.gender.label }}
+                        {{ form.gender }}
+
+                        {#                        <input type="text" class="input-block-level">#}
+                        {#                        <input type="password" class="input-block-level">#}
+                        {#                        <input type="text" class="input-block-level">#}
+
+                    </div>
+                    <div class="right-block">
+                        {{ form.email.label }}
+                        {{ form.email }}
+                        {{ form.dob.label }}
+                        {{ form.dob}}
+                        {{ form.last_name.label }}
+                        {{ form.last_name }}
+                        {{ form.profession.label }}
+                        {{ form.profession }}
+                        {#                        <input type="text" class="input-block-level">#}
+                        {#                        <input type="text" maxlength="2" class="input-block-new-day-level" placeholder="DD">#}
+                        {#                        <input type="text" maxlength="2" class="input-block-new-day-level" placeholder="MM">#}
+                        {#                        <input type="text" maxlength="4" class="input-block-new-year-level" placeholder="YYYY">#}
+                        {#                        <select class="styled-select">#}
+                        {#                            <option>Male</option>#}
+                        {#                            <option>Female</option>#}
+                        {#                        </select>#}
+                    </div>
+                </form>
+            </div>
+            <div class="article-footer" style="margin-top: 250px;">
+                <br>
+                <span class="my-span">By clicking Create account, you agree to the <a href="#">terms of service</a> and <a
+                        href="#">privacy policy</a></span>
+                <input type="submit" class="submit btn" form="signupForm" value="Sign up">
+            </div>
+        </article>
+    </section>
 {% endblock %}

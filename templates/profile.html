@@ -2,18 +2,18 @@
 
 
 {% block content %}
-    <table class="table table-striped">
-        <tbody>
-        <tr>
-            <td>#</td>
-            <td>Username</td>
-            <td>First name</td>
-            <td>Last name</td>
-            <td>e-mail</td>
-            <td>password</td>
-            <td>Gender</td>
-            <td>Date of birth</td>
-        </tr>
+{#    <table class="table table-striped">#}
+{#        <tbody>#}
+{#        <tr>#}
+{#            <td>#</td>#}
+{#            <td>Username</td>#}
+{#            <td>First name</td>#}
+{#            <td>Last name</td>#}
+{#            <td>e-mail</td>#}
+{#            <td>password</td>#}
+{#            <td>Gender</td>#}
+{#            <td>Date of birth</td>#}
+{#        </tr>#}
         {% for backer in backer %}
             <tr>
                 <td>{{ forloop.counter }}</td>
@@ -27,6 +27,6 @@
                 <td><a href="/student_registration/{{ backer.id }}/student_form">Edit</a></td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+{#        </tbody>#}
+{#    </table>#}
 {% endblock %}

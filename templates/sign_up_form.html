@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %} Sign up {% endblock %}
+
+{% block content %}
+    <section class="main-section">
+        <article class="my-article">
+            <h1 class="header">Sign up</h1>
+
+            <aside class="main-aside">
+                <button id="facebook" class="btn" style="background:#3b5998;">
+                    <div>
+                        <div>
+                            <i class="facebook_24"></i>
+                        </div>
+                        <div class="facebook-btn-div">
+                            <span class="facebook-btn-span">Sign in with Facebook</span>
+                        </div>
+                    </div>
+                </button>
+                <p></p>
+                <button id="twitter" class="btn" style="background: #22b8e9;">
+                    <div>
+                        <div>
+                            <i class="twitter_24"></i>
+                        </div>
+                        <div class="twitter-btn-div">
+                            <span class="twitter-btn-span">Sign in with Twitter</span>
+                        </div>
+                    </div>
+                </button>
+            </aside>
+
+            <div class="main">
+                <form action="" method="post" class="well form">{% csrf_token %}
+                    <div class="left-block">
+
+
+{#                        <input type="text" class="input-block-level">#}
+{#                        <input type="password" class="input-block-level">#}
+{#                        <input type="text" class="input-block-level">#}
+
+                    </div>
+                    <div class="right-block">
+{#                        <input type="text" class="input-block-level">#}
+{#                        <input type="text" maxlength="2" class="input-block-new-day-level" placeholder="DD">#}
+{#                        <input type="text" maxlength="2" class="input-block-new-day-level" placeholder="MM">#}
+{#                        <input type="text" maxlength="4" class="input-block-new-year-level" placeholder="YYYY">#}
+{#                        <select class="styled-select">#}
+{#                            <option>Male</option>#}
+{#                            <option>Female</option>#}
+{#                        </select>#}
+                    </div>
+                </form>
+            </div>
+            <div class="article-footer">
+                <br>
+                <span class="my-span">By clicking Create account, you agree to the <a href="#">terms of service</a> and <a
+                        href="#">privacy policy</a></span>
+                <input type="submit" class="submit btn" value="Sign up">
+            </div>
+        </article>
+    </section>
+{% endblock %}
