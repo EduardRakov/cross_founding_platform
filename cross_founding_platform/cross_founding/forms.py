@@ -1,101 +1,27 @@
-from django.forms import ModelForm, RegexField, PasswordInput, TextInput
-#from registration.forms import TextInput
-from registration.forms import RegistrationForm, RegistrationFormUniqueEmail
-from registration.models import RegistrationProfile
-import site
-from cross_founding_platform.cross_founding.models import Backer
-from django.contrib.auth.models import User
-from django.contrib.sites.models import Site, RequestSite
-from registration import signals
-from registration.models import RegistrationProfile
 from django import forms
-#
-#class BackerForm(ModelForm):
-#    class Meta:
-#        model = Backer
-#
-#    username = RegexField(
-#        label="USERNAME",
-#        required=True,
-#        max_length=30,
-#        min_length=4,
-#        regex=r'^([a-zA-Z])+$',
-#        error_messages={"invalid": "Letters only"}
-#    )
-#
-#    first_name = RegexField(
-#        label="FIRST NAME",
-#        required=True,
-#        widget = TextInput(attrs={'style':'color:red'}),
-#        max_length=30,
-#        min_length=2,
-#        regex=r'^([a-zA-Z])+$',
-#        error_messages={"invalid": "Letters only"}
-#    )
-#
-#    last_name = RegexField(
-#        label="LAST NAME",
-#        required=True,
-#        max_length=30,
-#        min_length=2,
-#        regex=r'^([a-zA-Z])+$',
-#        error_messages={"invalid": "Letters only"}
-#    )
+from django.utils.translation import ugettext_lazy as _
 
-    # email = RegexField(
-    # label="EMAIL",
-    # required=True
-    # )
-#    password = RegexField(
-#        label="PASSWORD",
-#        required=True,
-#        widget = PasswordInput,
-#        max_length=25,
-#        min_length=6,
-#        regex=r'^([a-zA-Z\w@,./\\:+*-])+$',
-#        error_messages={"invalid": "Letters only"}
-#    )
+from registration.forms import RegistrationFormUniqueEmail
 
-    # gender = RegexField(
-    # label="GENDER",
-    # widget=ModelChoiceField()
-    # )
-    # dob_at = RegexField(
-    # label="DATE OF BIRTH",
-    # required=True
-    # )
-#RegistrationForm.base_fields.update(BackerForm.base_fields)
-def save(self, user):
-    try:
-        data = user.get_profile()
+from cross_founding_platform.cross_founding.models import Backer, Profession
 
-    except:
-        data = Backer(user=user)
+attrs_dict = {'class': 'styled-select'}
 
-    data.first_name = self.cleaned_data["first_name"]
-    data.save()
+PROFESSION_CHOICES = [(profession.id, profession.name) for profession in Profession.objects.all()]
 
 class BackerRegistrationForm(RegistrationFormUniqueEmail):
+    def __init__(self, *args, **kwargs):
+        super(BackerRegistrationForm, self).__init__(*args, **kwargs)
+        del self.fields['password2']
 
-    first_name = forms.CharField(label='first name')
-
-#    def save(self, request, profile_callback=None, **kwargs):
-#        user = super(BackerRegistrationForm, self).save(profile_callback=None)
-#        backer = Backer.objects.get_or_create(
-#            user=user,
-#            firts_name=self.cleaned_data['first_name'],
-#            last_name=self.cleaned_data['last_name']
-#
-#        )
-#        username, email, password = kwargs['username'], kwargs['email'], kwargs['password1']
-#        new_user = RegistrationProfile.objects.create_inactive_user(username, email,
-#            password, site)
-#        signals.user_registered.send(sender=self.__class__,
-#            user=new_user,
-#            request=request)
-#        u = User.objects.get(username=new_user.username)
-#        u.first_name = kwargs['first_name']
-#        u.last_name = kwargs['last_name']
-#        u.save()
-#
-#        return new_user
+    email = forms.EmailField(label=_('Email'), error_messages={'required': _('Input your email address')})
+    first_name = forms.CharField(max_length=30, required=True, label=_('First Name'),
+        error_messages={'required': _('Input your first name')})
+    last_name = forms.CharField(max_length=30, required=True, label=_('Last Name'),
+        error_messages={'required': _('Input your last name')})
+    gender = forms.ChoiceField(widget=forms.Select(attrs=attrs_dict), choices=Backer.GENDER,
+        label=_('Gender'), error_messages={'required': _('Select your gender')})
+    dob_at = forms.DateField(label=_('Date of birth'), error_messages={'required': _('Date of birth is required field')})
+    profession = forms.ChoiceField(label=_('Profession'), choices=PROFESSION_CHOICES,
+        widget=forms.Select(attrs=attrs_dict), required=False,
+        error_messages={'required': _('Choose your profession')})
