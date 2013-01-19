@@ -8,18 +8,28 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Adding model 'Profession'
+        db.create_table('cross_founding_profession', (
+            ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=15)),
+        ))
+        db.send_create_signal('cross_founding', ['Profession'])
+
         # Adding model 'Backer'
         db.create_table('cross_founding_backer', (
-            ('user_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
-            ('gender', self.gf('django.db.models.fields.CharField')(max_length=2)),
+            ('user', self.gf('cross_founding_platform.cross_founding.fields.AutoOneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('gender', self.gf('django.db.models.fields.IntegerField')(default=3, max_length=1)),
             ('dob_at', self.gf('django.db.models.fields.DateField')()),
-            ('profession', self.gf('django.db.models.fields.CharField')(max_length=15, blank=True)),
+            ('profession', self.gf('django.db.models.fields.related.ForeignKey')(default=None, to=orm['cross_founding.Profession'], null=True, blank=True)),
             ('location', self.gf('django.db.models.fields.CharField')(max_length=16)),
         ))
         db.send_create_signal('cross_founding', ['Backer'])
 
 
     def backwards(self, orm):
+        # Deleting model 'Profession'
+        db.delete_table('cross_founding_profession')
+
         # Deleting model 'Backer'
         db.delete_table('cross_founding_backer')
 
@@ -62,12 +72,17 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'cross_founding.backer': {
-            'Meta': {'object_name': 'Backer', '_ormbases': ['auth.User']},
+            'Meta': {'object_name': 'Backer'},
             'dob_at': ('django.db.models.fields.DateField', [], {}),
-            'gender': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
+            'gender': ('django.db.models.fields.IntegerField', [], {'default': '3', 'max_length': '1'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
-            'profession': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
-            'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
+            'profession': ('django.db.models.fields.related.ForeignKey', [], {'default': 'None', 'to': "orm['cross_founding.Profession']", 'null': 'True', 'blank': 'True'}),
+            'user': ('cross_founding_platform.cross_founding.fields.AutoOneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
+        },
+        'cross_founding.profession': {
+            'Meta': {'object_name': 'Profession'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '15'})
         }
     }
 

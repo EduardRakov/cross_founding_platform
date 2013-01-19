@@ -51,8 +51,8 @@
                     <p></p>
                 {% endif %}
 
-                {% if  form.dob.errors%}
-                    {{ form.dob.errors.as_text }}
+                {% if  form.dob_at.errors%}
+                    {{ form.dob_at.errors.as_text }}
                     <p></p>
                 {% endif %}
 
@@ -111,8 +111,8 @@
                     <div class="right-block" style="float: right">
                         {{ form.email.label }}
                         {{ form.email }}
-                        {{ form.dob.label }}
-                        {{ form.dob}}
+                        {{ form.dob_at.label }}
+                        {{ form.dob_at}}
                         {{ form.last_name.label }}
                         {{ form.last_name }}
                         {{ form.profession.label }}
