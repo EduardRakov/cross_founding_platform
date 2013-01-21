@@ -1,24 +1,6 @@
 {% extends 'base.html' %}
 
 {% block title %} Sign Up form {% endblock %}
-{#{% block content %}#}
-{##}
-{#    <form method="post" action="">#}
-{#        <dl class="register">#}
-{#            {% for field in form %}#}
-{#                <dt>{{ field.label_tag }}</dt>#}
-{#                <dd class="clearfix">{{ field }}#}
-{#                    {% if field.help_text %}#}
-{#                        <div class="clearfix">{{ field.help_text }}</div>{% endif %}#}
-{#                    {% if field.errors %}#}
-{#                        <div class="myerrors clearfix">{{ field.errors }}</div>{% endif %}#}
-{#                </dd>#}
-{#            {% endfor %}#}
-{#        </dl>#}
-{#        <input type="submit" value="Sign Up">#}
-{#    </form>#}
-{##}
-{#{% endblock %}#}
 
 {% block content %}
     {% if form.errors %}
@@ -112,7 +94,11 @@
                         {{ form.email.label }}
                         {{ form.email }}
                         {{ form.dob_at.label }}
-                        {{ form.dob_at}}
+
+                        {{ form.day_dob}}
+                        {{ form.month_dob}}
+                        {{ form.year_dob}}
+
                         {{ form.last_name.label }}
                         {{ form.last_name }}
                         {{ form.profession.label }}

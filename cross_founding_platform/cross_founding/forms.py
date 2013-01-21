@@ -1,5 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import ValidationError
+import datetime
 
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -39,7 +41,14 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         error_messages={'required': _('Input your last name'), 'invalid': _('Last name must be letters only')}
     )
 
-    dob_at = forms.DateField(label=_('Date of birth'), error_messages={'required': _('Date of birth is required field')})
+    dob_at = forms.DateField(
+        required=False,
+        label=_('Date of birth'),
+        error_messages={'required': _('Date of birth is required field')})
+
+    month_dob = forms.CharField(label=_('Month'),  widget=forms.TextInput(attrs={'placeholder': 'MM'}))
+    day_dob = forms.CharField(label=_('Day'), widget=forms.TextInput(attrs={'placeholder': 'DD'}))
+    year_dob = forms.CharField(label=_('Year'),  widget=forms.TextInput(attrs={'placeholder': 'YYYY'}))
 
     gender = forms.ChoiceField(
         widget=forms.Select(attrs=attrs_dict),
@@ -48,9 +57,16 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         error_messages={'required': _('Select your gender')}
     )
 
-    profession = forms.ChoiceField(
-        widget=forms.Select(attrs=attrs_dict),
-        choices=PROFESSION_CHOICES,
+    profession = forms.ModelChoiceField(
+       queryset=Profession.objects.all(),
         required=False,
-        label=_('Profession'),
+        label=_('Profession (optional)'),
+        widget=forms.Select(attrs=attrs_dict)
     )
+
+    def clean_dob_at(self):
+        try:
+            dob_at = datetime.date(int(self.data["year_dob"]), int(self.data["month_dob"]), int(self.data["day_dob"]))
+        except:
+            raise forms.ValidationError('Please input valid date')
+        return dob_at

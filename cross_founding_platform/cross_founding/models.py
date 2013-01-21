@@ -20,9 +20,9 @@ class Profession(models.Model):
 class Backer(models.Model):
 
     GENDER = Choices(
-        (1, 'Male', _('Male')),
-        (2, 'Female', _('Female')),
-        (3, 'Unspecified', _('Unspecified'))
+        (1, 'Unspecified', _('Unspecified')),
+        (2, 'Male', _('Male')),
+        (3, 'Female', _('Female')),
     )
 
     user = AutoOneToOneField(User, primary_key=True)
