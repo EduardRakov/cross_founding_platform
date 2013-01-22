@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
+
 import datetime
 
 from registration.forms import RegistrationFormUniqueEmail
@@ -12,7 +12,6 @@ attrs_dict = {'class': 'styled-select'}
 PROFESSION_CHOICES = [(profession.id, profession.name) for profession in Profession.objects.all()]
 
 class BackerRegistrationForm(RegistrationFormUniqueEmail):
-
     def __init__(self, *args, **kwargs):
         super(BackerRegistrationForm, self).__init__(*args, **kwargs)
         del self.fields['password2']
@@ -46,9 +45,12 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         label=_('Date of birth'),
         error_messages={'required': _('Date of birth is required field')})
 
-    month_dob = forms.CharField(label=_('Month'),  widget=forms.TextInput(attrs={'placeholder': 'MM'}))
-    day_dob = forms.CharField(label=_('Day'), widget=forms.TextInput(attrs={'placeholder': 'DD'}))
-    year_dob = forms.CharField(label=_('Year'),  widget=forms.TextInput(attrs={'placeholder': 'YYYY'}))
+    month_dob = forms.CharField(label=_('Month'),
+        widget=forms.TextInput(attrs={'placeholder': 'MM', 'class': 'input-block-new-day-level'}))
+    day_dob = forms.CharField(label=_('Day'),
+        widget=forms.TextInput(attrs={'placeholder': 'DD', 'class': 'input-block-new-day-level'}))
+    year_dob = forms.CharField(label=_('Year'),
+        widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level'}))
 
     gender = forms.ChoiceField(
         widget=forms.Select(attrs=attrs_dict),
@@ -58,7 +60,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     )
 
     profession = forms.ModelChoiceField(
-       queryset=Profession.objects.all(),
+        queryset=Profession.objects.all(),
         required=False,
         label=_('Profession (optional)'),
         widget=forms.Select(attrs=attrs_dict)
@@ -69,4 +71,5 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
             dob_at = datetime.date(int(self.data["year_dob"]), int(self.data["month_dob"]), int(self.data["day_dob"]))
         except:
             raise forms.ValidationError('Please input valid date')
+
         return dob_at
