@@ -5,10 +5,7 @@ import datetime
 
 from registration.forms import RegistrationFormUniqueEmail
 
-from cross_founding_platform.cross_founding.models import Backer, Profession
-
-
-PROFESSION_CHOICES = [(profession.id, profession.name) for profession in Profession.objects.all()]
+from cross_founding_platform.cross_founding.models import Backer
 
 class BackerRegistrationForm(RegistrationFormUniqueEmail):
     def __init__(self, *args, **kwargs):
@@ -63,12 +60,12 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         error_messages={'required': _('Select your gender')}
     )
 
-    profession = forms.ModelChoiceField(
-
-        queryset=Profession.objects.all(),
+    profession = forms.ChoiceField(
+        widget=forms.Select(attrs={'class': 'styled-select', 'tabindex': '10'}),
+#        choices=Backer.PROFESSION,
         required=False,
-        label=_('Profession (optional)'),
-        widget=forms.Select(attrs={'class': 'styled-select', 'tabindex': '10'})
+        label=_('Profession (optional)')
+
     )
 
     def clean_dob_at(self):

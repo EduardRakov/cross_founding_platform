@@ -26,5 +26,5 @@ class Backer(models.Model):
 
     gender = models.IntegerField(_('Gender'), max_length=1, choices=GENDER, default=GENDER.Unspecified)
     dob_at = models.DateField(_('Date of birth'))
-    profession = models.IntegerField(choices=GENDER, default=PROFESSION.Unspecified)
+#    profession = models.IntegerField(choices=PROFESSION)
     location = models.CharField(max_length=16)

@@ -27,16 +27,19 @@
             <h1 class="header">Sign up</h1>
 
             <aside class="main-aside">
-                <button id="facebook" class="btn" style="background:#3b5998;">
-                    <div>
-                        <div>
-                            <i class="facebook_24"></i>
-                        </div>
-                        <div class="facebook-btn-div">
-                            <span class="facebook-btn-span">Sign in with Facebook</span>
-                        </div>
-                    </div>
-                </button>
+{#                <button id="facebook" class="btn" style="background:#3b5998;">#}
+{#                    <div>#}
+{#                        <div>#}
+{#                            <i class="facebook_24"></i>#}
+{#                        </div>#}
+{#                        <div class="facebook-btn-div">#}
+{#                            <span class="facebook-btn-span">Sign in with Facebook</span>#}
+{#                        </div>#}
+{#                        #}
+{#                    </div>#}
+                    {% load facebook %}
+                    {% facebook_button %}
+{#                </button>#}
                 <p></p>
                 <button id="twitter" class="btn" style="background: #22b8e9;">
                     <div>
