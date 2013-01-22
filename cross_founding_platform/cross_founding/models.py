@@ -10,13 +10,6 @@ from cross_founding_platform.cross_founding.fields import AutoOneToOneField
 
 add_introspection_rules([], ["^cross_founding_platform\.cross_founding\.fields\.AutoOneToOneField"])
 
-
-class Profession(models.Model):
-    name = models.CharField(_('Profession'), max_length=15)
-
-    def __unicode__(self):
-        return self.name
-
 class Backer(models.Model):
 
     GENDER = Choices(
@@ -25,9 +18,13 @@ class Backer(models.Model):
         (3, 'Female', _('Female')),
     )
 
+    PROFESSION = Choices(
+
+        (1, '', _(''))
+    )
     user = AutoOneToOneField(User, primary_key=True)
 
     gender = models.IntegerField(_('Gender'), max_length=1, choices=GENDER, default=GENDER.Unspecified)
     dob_at = models.DateField(_('Date of birth'))
-    profession = models.ForeignKey(Profession, blank=True, null=True, default=None)
+    profession = models.IntegerField(choices=GENDER, default=PROFESSION.Unspecified)
     location = models.CharField(max_length=16)

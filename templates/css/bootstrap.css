@@ -6119,12 +6119,6 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
     font-size: large;
     height: 40px;
     border-top-width: 0px; border-left-width: 0px;color:#9999a5; border-right-width: 0px; background-color: #eeeeee; box-shadow: none; ;border-top-left-radius: 0%;border-bottom-left-radius: 0%;border-top-right-radius: 0%;border-bottom-right-radius: 0%;
-    /*-moz-binding: none;*/
-    /*-moz-box-sizing: border-box;*/
-    /*-moz-font-feature-settings: -moz-use-system-font;*/
-    /*-moz-font-language-override: -moz-use-system-font;*/
-    /*-moz-user-select: none;*/
-    /*-x-system-font: -moz-button;*/
     border-left-color-rtl-source: physical;
     border-left-color-value: buttonface;
     border-left-style-rtl-source: physical;
@@ -6174,7 +6168,8 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 }
 
 .input-block-new-day-level {
-    text-align: center; width: 28%; height: 20%;
+    text-align: center; width: 28%;
+    height: 100% !important;
     display: block;
     /*min-height: 30px;*/
     -webkit-box-sizing: border-box;
@@ -6193,6 +6188,7 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 .input-block-new-level-highlight{
     display: block;
     width: 100%;
+    height: 100% !important;
     min-height: 30px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -6211,7 +6207,7 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 
 
 .input-block-new-year-level {
-    text-align: center; width: 40%; height: 20%;
+    text-align: center; width: 40%; height: 100% !important;
     display: block;
     /*min-height: 30px;*/
     -webkit-box-sizing: border-box;
@@ -6233,7 +6229,7 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 }
 
 .submit{
-    text-align:center;height: 40px; margin-left: 84%; margin-top: -40px
+    text-align:center;height: 40px; margin-left: 84%; margin-bottom: -340px
     !important;
 }
 
@@ -6280,4 +6276,12 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 .form{
     margin-top: -110px; padding-top: 0px;
     height: 300px;
+}
+
+.my-alert{
+    background-color:#eeeeee ;
+}
+
+div.my-alert input {
+    background-color: #f2dede;
 }
