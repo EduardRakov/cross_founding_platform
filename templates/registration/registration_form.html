@@ -27,19 +27,19 @@
             <h1 class="header">Sign up</h1>
 
             <aside class="main-aside">
-{#                <button id="facebook" class="btn" style="background:#3b5998;">#}
-{#                    <div>#}
-{#                        <div>#}
-{#                            <i class="facebook_24"></i>#}
-{#                        </div>#}
-{#                        <div class="facebook-btn-div">#}
-{#                            <span class="facebook-btn-span">Sign in with Facebook</span>#}
-{#                        </div>#}
-{#                        #}
-{#                    </div>#}
-                    {% load facebook %}
-                    {% facebook_button %}
-{#                </button>#}
+                <button id="facebook" class="btn" style="background:#3b5998;">
+                    <div>
+                        <div>
+                            <i class="facebook_24"></i>
+                        </div>
+                        <div class="facebook-btn-div">
+                            <span class="facebook-btn-span">Sign in with Facebook</span>
+                        </div>
+
+                    </div>
+                </button>
+                {% load facebook %}
+                {% facebook_button %}
                 <p></p>
                 <button id="twitter" class="btn" style="background: #22b8e9;">
                     <div>
@@ -55,47 +55,45 @@
             <form id="sign_up_form" method="post" class="well form"
                   style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
                 <div class="main">
-
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">
                         {{ form.username.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.username.errors %}class="my-alert"{% endif %}>
                             {{ form.username }}
                         </div>
                         {{ form.password1.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.password1.errors %}class="my-alert"{% endif %}>
                             {{ form.password1 }}
                         </div>
                         {{ form.first_name.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.first_name.errors %}class="my-alert"{% endif %}>
                             {{ form.first_name }}
                         </div>
                         {{ form.gender.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div>
                             {{ form.gender }}
                         </div>
                     </div>
                     <div class="right-block" style="float: right">
                         {{ form.email.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.email.errors %}class="my-alert"{% endif %}>
                             {{ form.email }}
                         </div>
                         {{ form.dob_at.label }}
-                        <div style="height: 50px" {% if form.errors %}class="my-alert"{% endif %}>
+                        <div style="height: 50px" {% if form.dob_at.errors %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
                             {{ form.year_dob }}
                         </div>
                         <p></p>
                         {{ form.last_name.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.last_name.errors %}class="my-alert"{% endif %}>
                             {{ form.last_name }}
                         </div>
                         {{ form.profession.label }}
-                        <div {% if form.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.profession.errors %}class="my-alert"{% endif %}>
                             {{ form.profession }}
                         </div>
                     </div>
-
                 </div>
                 <input type="submit" class="submit btn" tabindex="11" value="Sign up">
             </form>
