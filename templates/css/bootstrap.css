@@ -6151,20 +6151,22 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 }
 
 .styled-select select {
-
-    background: transparent;
     width: 268px;
     padding: 5px;
+    background: #eeeeee;
+    background-color: #eeeeee;
     border: 1px solid #ccc;
     font-size: large; height: 500px; padding-top: 8px; color: #9999a5;
 }
 
 .styled-select {
     width: 100%;
+    background: #eeeeee;
+    background-color: #eeeeee;
     overflow: hidden;
     font-size: large; height: 40px; padding-top: 8px; color: #9999a5;
-    background: url() no-repeat right #ffffff;
     border: 1px solid #ccc;
+
 }
 
 .input-block-new-day-level {
@@ -6225,11 +6227,11 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 
 .my-span{
     margin-left: 20px; color: #6f6c63;
-    margin-top: -20px;
 }
 
 .submit{
-    text-align:center;height: 40px; margin-left: 84%; margin-bottom: -340px
+    text-align:center;height: 40px; margin-left: 84%;
+    margin-top: 250px;
     !important;
 }
 
@@ -6261,7 +6263,9 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 }
 
 .article-footer{
-    background-color: #ffffff; height: 60px
+     width: 800px; margin-left: -270px;
+    background-color: #ffffff; height: 60px;
+    margin-top: -50px;
 }
 
 .facebook-btn-div{
@@ -6281,6 +6285,7 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 .my-alert{
     background-color:#eeeeee ;
 }
+
 
 div.my-alert input {
     background-color: #f2dede;

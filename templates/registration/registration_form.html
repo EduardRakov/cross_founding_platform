@@ -4,23 +4,24 @@
 
 {% block content %}
     {% if form.errors %}
-    <div style="position: absolute;margin-left: 580px;margin-top: -200px;">
-        <div style="height: 130px; width: 430px; margin-top: 50px; margin-left: 20px;"
-             class="alert alert-error">
-            <div style="width: 200px; float: left">
-                <p>{{ form.username.errors.as_text }}</p>
-                <p>{{ form.password1.errors.as_text }}</p>
-                <p>{{ form.first_name.errors.as_text }}</p>
-                <p>{{ form.gender.errors.as_text }}</p>
-            </div>
-            <div style="float: right; width: 40%;">
-                <p>{{ form.email.errors.as_text }}</p>
-                <p>{{ form.dob_at.errors.as_text }}</p>
-                <p>{{ form.last_name.errors.as_text }}</p>
-                <p>{{ form.profession.errors.as_text }}</p>
+        <div style="position: absolute;margin-left: 580px;margin-top: -15%;">
+            <div style="height:100%; width:100% ; margin-top: 50px;"
+                 class="alert alert-error">
+                <div style="width: 100%;">
+                    <p>{{ form.username.errors.as_text }}</p>
+
+                    <p>{{ form.email.errors.as_text }}</p>
+
+                    <p>{{ form.password1.errors.as_text }}</p>
+
+                    <p>{{ form.dob_at.errors.as_text }}</p>
+
+                    <p>{{ form.first_name.errors.as_text }}</p>
+
+                    <p>{{ form.last_name.errors.as_text }}</p>
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
     <section class="main-section" style="">
         <article class="my-article">
@@ -35,11 +36,8 @@
                         <div class="facebook-btn-div">
                             <span class="facebook-btn-span">Sign in with Facebook</span>
                         </div>
-
                     </div>
                 </button>
-                {% load facebook %}
-                {% facebook_button %}
                 <p></p>
                 <button id="twitter" class="btn" style="background: #22b8e9;">
                     <div>
@@ -95,14 +93,16 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" class="submit btn" tabindex="11" value="Sign up">
-            </form>
-            <div class="article-footer" style="margin-top: 250px;">
-                <br>
-                <span class="my-span" style="float: left">By clicking Create account, you agree to the <a href="#">terms
+                <input type="submit" class="submit btn" value="Sign up" tabindex="10">
+
+                <div class="article-footer" style="">
+                    <br>
+                <span class="my-span" style="float: left;">By clicking Create account, you agree to the <a href="#">terms
                     of service</a> and <a
                         href="#">privacy policy</a></span>
-            </div>
+                </div>
+            </form>
+
         </article>
     </section>
 {% endblock %}

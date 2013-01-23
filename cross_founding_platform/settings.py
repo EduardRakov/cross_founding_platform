@@ -34,16 +34,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/templates'
+MEDIA_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/templates'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/home/eddie/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
+STATIC_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    '/home/eddie/PycharmProjects/cross_founding_platform/templates',
+    '/home/eduardr/PycharmProjects/cross_founding_platform/templates',
 )
 
 STATICFILES_FINDERS = (
@@ -78,16 +78,16 @@ ROOT_URLCONF = 'cross_founding_platform.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/eddie/PycharmProjects/cross_founding_platform/templates',)
+TEMPLATE_DIRS = ('/home/eduardr/PycharmProjects/cross_founding_platform/templates',)
 
 AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'cross.founding@gmail.com'
-EMAIL_HOST_PASSWORD = 'Profit!!!1'
-EMAIL_PORT = 587
-
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'info@google.ru'
+
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -97,6 +97,7 @@ AUTHENTICATION_BACKENDS = (
 FACEBOOK_APP_ID = '467506353311178'
 FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
 FACEBOOK_REQUEST_PERMISSIONS = ''
+
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
@@ -115,13 +116,13 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'cross_founding_platform.cross_founding',
-#    'south',
+    'south',
     'registration',
     'django_nose',
     'socialregistration',
     'socialregistration.contrib.facebook',
     'oauth2',
-
+    'openid',
     )
 
 AUTH_PROFILE_MODULE = 'cross_founding.model.backer'

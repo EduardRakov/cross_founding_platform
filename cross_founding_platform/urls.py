@@ -5,7 +5,7 @@ import registration.backends.default.urls as regUrls
 
 from cross_founding_platform.cross_founding.forms import BackerRegistrationForm
 
-from cross_founding_platform.cross_founding.regbackend import *
+from cross_founding_platform.cross_founding.backer_registration import *
 
 admin.autodiscover()
 

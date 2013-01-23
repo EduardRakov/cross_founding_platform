@@ -4,7 +4,6 @@ from this import c
 
 
 def profile(request):
-
     return render_to_response("profile.html")
 
 def facebook(request):
