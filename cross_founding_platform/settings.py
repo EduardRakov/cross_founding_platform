@@ -119,13 +119,13 @@ INSTALLED_APPS = (
     'south',
     'registration',
     'django_nose',
-    'socialregistration',
-    'socialregistration.contrib.facebook',
-    'oauth2',
-    'openid',
+#    'socialregistration',
+#    'socialregistration.contrib.facebook',
+#    'oauth2',
+#    'openid',
     )
 
-AUTH_PROFILE_MODULE = 'cross_founding.model.backer'
+AUTH_PROFILE_MODULE = 'cross_founding.Backer'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 
