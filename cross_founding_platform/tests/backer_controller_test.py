@@ -3,11 +3,6 @@ from unittest import TestCase
 from django.contrib.auth.models import User
 from django.test import Client
 
-#print >> sys.stderr, self.get_empty_form()
-#import sys
-import sys
-from cross_founding_platform.cross_founding.models import Backer
-
 class BackerRegistrationCase(TestCase):
     def setUp(self):
         self.client = Client()

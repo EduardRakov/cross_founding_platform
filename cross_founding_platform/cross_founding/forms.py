@@ -114,5 +114,6 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         try:
             self.get_dob()
             return True
+
         except (KeyError, ValueError):
             return False

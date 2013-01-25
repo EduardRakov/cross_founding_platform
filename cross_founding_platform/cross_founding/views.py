@@ -7,7 +7,6 @@ from django.template import RequestContext
 from cross_founding_platform.cross_founding.forms import BackerRegistrationForm
 from cross_founding_platform.cross_founding.models import Backer
 
-
 def profile(request):
     return render_to_response("profile.html")
 

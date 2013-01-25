@@ -12,7 +12,6 @@ from registration.signals import user_registered
 #def backer_registration(sender, user, request, **kwargs):
 #    form = BackerRegistrationForm(request.POST)
 #    print form._errors
-#
 #    user.first_name = form.cleaned_data["first_name"]
 #    user.last_name = form.cleaned_data["last_name"]
 #    user.save()
