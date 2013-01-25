@@ -2,26 +2,18 @@
 
 {% block title %} Sign Up form {% endblock %}
 
+{% load display_errors %}
+
 {% block content %}
     {% if form.errors %}
-        <div style="position: absolute;margin-left: 580px;margin-top: -15%;">
-            <div style="height:100%; width:100% ; margin-top: 50px;"
-                 class="alert alert-error">
-                <div style="width: 100%;">
-                    <p>{{ form.username.errors.as_text }}</p>
-
-                    <p>{{ form.email.errors.as_text }}</p>
-
-                    <p>{{ form.password1.errors.as_text }}</p>
-
-                    <p>{{ form.dob_at.errors.as_text }}</p>
-
-                    <p>{{ form.first_name.errors.as_text }}</p>
-
-                    <p>{{ form.last_name.errors.as_text }}</p>
-                </div>
+    <div style="position: absolute;margin-left: 580px;margin-top: -15%;">
+        <div style="height:100%; width:100% ; margin-top: 50px;"
+             class="alert alert-error">
+            <div style="width: 100%;">
+                 {{ form|display_errors:""|safe }}
             </div>
         </div>
+    </div>
     {% endif %}
     <section class="main-section" style="">
         <article class="my-article">
@@ -76,8 +68,8 @@
                         <div {% if form.email.errors %}class="my-alert"{% endif %}>
                             {{ form.email }}
                         </div>
-                        {{ form.dob_at.label }}
-                        <div style="height: 50px" {% if form.dob_at.errors %}class="my-alert"{% endif %}>
+                        {{ form.day_dob.label }}
+                        <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
                             {{ form.year_dob }}
@@ -94,7 +86,6 @@
                     </div>
                 </div>
                 <input type="submit" class="submit btn" value="Sign up" tabindex="10">
-
                 <div class="article-footer" style="">
                     <br>
                 <span class="my-span" style="float: left;">By clicking Create account, you agree to the <a href="#">terms

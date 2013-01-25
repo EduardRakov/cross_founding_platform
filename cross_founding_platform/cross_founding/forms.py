@@ -2,6 +2,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 import datetime
+import sys
+import os
 
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -66,19 +68,20 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         }
     )
 
-#    dob_at = forms.DateField(
-#        required=False,
-#        label=_('Date of birth'),
-#        error_messages={'required': _(u'Date of birth is required field')})
+    month_dob = forms.CharField(label=_('Month'), max_length=2, required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'MM', 'class': 'input-block-new-day-level', 'tabindex': '5'}),
+        error_messages={'required': _(u'Input month'), 'invalid': _(u'Input valid month'),}
+    )
 
-    month_dob = forms.CharField(label=_('Month'), max_length=2,
-        widget=forms.TextInput(attrs={'placeholder': 'MM', 'class': 'input-block-new-day-level', 'tabindex': '5'}))
+    day_dob = forms.CharField(label=_('Day'), max_length=2, required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'DD', 'class': 'input-block-new-day-level', 'tabindex': '4'}),
+        error_messages={'required': _(u'Input day'), 'invalid': _(u'Input valid day'),}
+    )
 
-    day_dob = forms.CharField(label=_('Day'), max_length=2,
-        widget=forms.TextInput(attrs={'placeholder': 'DD', 'class': 'input-block-new-day-level', 'tabindex': '4'}))
-
-    year_dob = forms.CharField(label=_('Year'), max_length=4,
-        widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level', 'tabindex': '6'}))
+    year_dob = forms.CharField(label=_('Year'), max_length=4, required=True,
+        widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level', 'tabindex': '6'}),
+        error_messages={'required': _(u'Input year'), 'invalid': _(u'Input valid year'),}
+    )
 
     gender = forms.ChoiceField(
         widget=forms.Select(attrs={'class': 'styled-select', 'tabindex': '9'}),
@@ -92,21 +95,24 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         choices=Backer.PROFESSION,
         required=False,
         label=_('Profession')
-
     )
 
-    def date_of_birth(self):
+    def clean(self):
+        super(RegistrationFormUniqueEmail, self).clean()
+
+        if not self.is_dob_valid():
+            self._errors['date_of_birth'] = self.error_class([u'Please, input valid date'])
+        else:
+            self.cleaned_data['dob_date'] = self.get_dob()
+
+        return self.cleaned_data
+
+    def get_dob(self):
         return datetime.date(int(self.cleaned_data["year_dob"]), int(self.cleaned_data["month_dob"]), int(self.cleaned_data["day_dob"]))
 
-#    def clean(self):
-#        cleaned_data = super(RegistrationFormUniqueEmail, self).clean()
-#        if self.date_of_birth().isoformat != (self.cleaned_data["year_dob"] + self.cleaned_data["month_dob"] +  self.cleaned_data["day_dob"]):
-#            self._errors["day_dob"] = self.error_class([_(u'Please enter a valid date')])
-
-#    def clean_dob_at(self):
-#        try:
-#            dob_at = self.date_of_birth
-#        except:
-#            raise forms.ValidationError(_(u'Please enter a valid date'))
-#        return dob_at
-
+    def is_dob_valid(self):
+        try:
+            self.get_dob()
+            return True
+        except (KeyError, ValueError):
+            return False

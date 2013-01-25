@@ -88,21 +88,21 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
 DEFAULT_FROM_EMAIL = 'info@google.ru'
 
+#
+#AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+#    'socialregistration.contrib.facebook.auth.FacebookAuth',
+#    )
+#
+#FACEBOOK_APP_ID = '467506353311178'
+#FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
+#FACEBOOK_REQUEST_PERMISSIONS = ''
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'socialregistration.contrib.facebook.auth.FacebookAuth',
-    )
 
-FACEBOOK_APP_ID = '467506353311178'
-FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
-FACEBOOK_REQUEST_PERMISSIONS = ''
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth',
-)
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    'django.core.context_processors.request',
+#    'django.contrib.auth.context_processors.auth',
+#)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
