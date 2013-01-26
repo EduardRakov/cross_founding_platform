@@ -1,9 +1,8 @@
+from django.utils.datastructures import MultiValueDictKeyError
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 import datetime
-import sys
-import os
 
 from registration.forms import RegistrationFormUniqueEmail
 
@@ -78,7 +77,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         error_messages={'required': _(u'Input day'), 'invalid': _(u'Input valid day'),}
     )
 
-    year_dob = forms.CharField(label=_('Year'), max_length=4, required=True,
+    year_dob = forms.CharField(label=_('Year'), min_length=4, max_length=4, required=True,
         widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level', 'tabindex': '6'}),
         error_messages={'required': _(u'Input year'), 'invalid': _(u'Input valid year'),}
     )
@@ -108,7 +107,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         return self.cleaned_data
 
     def get_dob(self):
-        return datetime.date(int(self.cleaned_data["year_dob"]), int(self.cleaned_data["month_dob"]), int(self.cleaned_data["day_dob"]))
+        return datetime.date(int(self.data["year_dob"]), int(self.data["month_dob"]), int(self.data["day_dob"]))
 
     def is_dob_valid(self):
         try:
