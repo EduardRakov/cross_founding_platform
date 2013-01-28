@@ -1,21 +1,14 @@
 from django import template
-from django.forms.util import ErrorDict
-from django.forms.util import ErrorList
-
-from cross_founding_platform.cross_founding.forms import BackerRegistrationForm
 
 register = template.Library()
 
 @register.filter(name='display_errors')
 def display_errors_except(BackerRegistrationForm, args):
 
-    try:
-        for error in args.split(', '):
-            del BackerRegistrationForm.errors[error]
-    except:
-        pass
-
+    template_args = args.split(', ')
     errors = ''
-    for n in BackerRegistrationForm.errors.keys():
-        errors += str(BackerRegistrationForm.errors[n])
+
+    for error_key in BackerRegistrationForm.errors.keys():
+        if error_key not in template_args:
+            errors += str(BackerRegistrationForm.errors[error_key])
     return errors
