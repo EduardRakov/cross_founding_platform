@@ -29,8 +29,8 @@ video {
   *zoom: 1;
 }
 
+
 h1 {
-    font-family: bentonsans, 'Comic Sans MS', cursive;
     font-size: 22px;
     font-weight: 200;
     width: 300px;
@@ -197,6 +197,7 @@ textarea {
 }
 .header{
     color: #9999A5;
+    font-family: bentonsans, 'Times New Roman', cursive
 }
 
 .main{
@@ -720,7 +721,6 @@ h6 {
 
     width:300px;
   margin: 10px 0;
-  font-family: bentonsans, 'Comic Sans MS', cursive;
   font-weight: bold;
   line-height: 20px;
   color: inherit;
@@ -743,13 +743,11 @@ h2,
 h3 {
     width: 300px;
   line-height: 40px;
-    font-family: bentonsans, 'Comic Sans MS', cursive;
     padding-bottom: 30px;
 }
 
 h1 {
   font-size: 38.5px;
-    font-family: BentonSans, 'Comic Sans MS', cursive;
     padding-bottom: 30px;
 }
 
@@ -6301,4 +6299,8 @@ div.login-div-fields input {
     background-color: #f89406;
 }
 
-
+.login-checkbox{
+    margin-left: 5px;
+    margin-bottom: 5px;
+    margin-top: 0px;
+}

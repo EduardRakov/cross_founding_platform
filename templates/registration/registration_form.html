@@ -3,14 +3,15 @@
 {% block title %} Sign Up form {% endblock %}
 
 {% load display_errors %}
+{% load show_label %}
 
 {% block content %}
     {% if form.errors %}
-    <div style="position: absolute;margin-left: 580px;margin-top: -15%;">
-        <div style="height:100%; width:100% ; margin-top: 50px;"
+    <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
+        <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;"
              class="alert alert-error">
-            <div style="width: 100%;">
-                 {{ form|display_errors:"year_dob, month_dob, day_dob"|safe }}
+            <div style="width: 100%; margin-bottom: -10px;">
+                 {{ form|display_errors:"day_dob, month_dob, year_dob"|safe }}
             </div>
         </div>
     </div>
@@ -18,7 +19,6 @@
     <section class="main-section" style="">
         <article class="my-article">
             <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
-
             <aside class="main-aside">
                 <button id="facebook" class="btn" style="background:#3b5998;">
                     <div>
@@ -68,7 +68,7 @@
                         <div {% if form.email.errors %}class="my-alert"{% endif %}>
                             {{ form.email }}
                         </div>
-                        {{ form.day_dob.label }}
+                        {{ form|show_label:'Date of birth' }}
                         <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
@@ -93,7 +93,6 @@
                         href="#">privacy policy</a></span>
                 </div>
             </form>
-
         </article>
     </section>
 {% endblock %}
