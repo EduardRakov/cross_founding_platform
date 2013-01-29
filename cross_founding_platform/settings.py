@@ -65,7 +65,7 @@ TEMPLATE_LOADERS = (
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 
@@ -86,23 +86,23 @@ EMAIL_PORT = 1025
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'info@google.ru'
+DEFAULT_FROM_EMAIL = 'info@example.com'
+
+#
+#AUTHENTICATION_BACKENDS = (
+#    'django.contrib.auth.backends.ModelBackend',
+#    'socialregistration.contrib.facebook.auth.FacebookAuth',
+#    )
+#
+#FACEBOOK_APP_ID = '467506353311178'
+#FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
+#FACEBOOK_REQUEST_PERMISSIONS = ''
 
 
-AUTHENTICATION_BACKENDS = (
-    'django.contrib.auth.backends.ModelBackend',
-    'socialregistration.contrib.facebook.auth.FacebookAuth',
-    )
-
-FACEBOOK_APP_ID = '467506353311178'
-FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
-FACEBOOK_REQUEST_PERMISSIONS = ''
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.core.context_processors.request',
-    'django.contrib.auth.context_processors.auth',
-)
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    'django.core.context_processors.request',
+#    'django.contrib.auth.context_processors.auth',
+#)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -111,9 +111,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'cross_founding_platform.cross_founding',
     'south',

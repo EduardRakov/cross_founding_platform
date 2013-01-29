@@ -10,7 +10,7 @@
         <div style="height:100%; width:100% ; margin-top: 50px;"
              class="alert alert-error">
             <div style="width: 100%;">
-                 {{ form|display_errors:""|safe }}
+                 {{ form|display_errors:"year_dob, month_dob, day_dob"|safe }}
             </div>
         </div>
     </div>
@@ -69,9 +69,7 @@
                             {{ form.email }}
                         </div>
                         {{ form.day_dob.label }}
-                        <div style="height: 50px" {% if form.day_dob.errors %}class="my-alert"
-                             {% elif form.month_dob.errors %}class="my-alert"
-                             {% elif form.year_dob.errors %}class="my-alert"{% endif %}>
+                        <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
                             {{ form.year_dob }}

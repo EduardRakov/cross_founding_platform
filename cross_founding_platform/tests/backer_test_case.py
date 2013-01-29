@@ -9,21 +9,23 @@ class BackerTestCase(TestCase):
             first_name = "Joe",
             last_name = "Doe",
             email = "joe@example.com",
-            password = "secret",)
+            password = "secret"
+        )
 
         self.user_1 = User.objects.get_or_create(
             username = "janedoe",
             first_name = "Jane",
             last_name = "Doe",
             email = "jane@example.com",
-            password = "secret",)
+            password = "secret"
+        )
 
 
         self.backer = Backer(
                 user_id=self.user,
                 gender = 2,
                 dob_at = "1980-01-01",
-                location = "NY"
+                location = "127.0.0.1"
             )
 
     def test_should_create_table_with_corresponding_fields(self):
@@ -34,11 +36,10 @@ class BackerTestCase(TestCase):
         self.assertEqual(self.user.email, "joe@example.com")
         self.assertEqual(self.user.password, "secret")
         self.assertEqual(self.backer.gender, 2)
-        self.assertEqual(self.backer.location, "NY")
-        self.assertNotEqual(self.backer.location, "NY_1")
+        self.assertEqual(self.backer.location, "127.0.0.1")
+        self.assertNotEqual(self.backer.location, "127.0.1")
 
     def test_should_unique_username(self):
-
         try:
             self.user_1.username = "joedoe"
             self.user_1.save()

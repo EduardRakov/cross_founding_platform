@@ -16,7 +16,7 @@ def backer_registration(sender, user, request, **kwargs):
     backer = Backer(user=user)
     backer.gender = form.data["gender"]
     backer.location = request.META['REMOTE_ADDR']
-    backer.dob_at = '2011-11-11' #form.date_of_birth
+    backer.dob_at = form.get_dob()
     backer.save()
 
 user_registered.connect(backer_registration)

@@ -8,12 +8,20 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        db.create_unique('auth_user', ['email'])
-
+        # Adding model 'Backer'
+        db.create_table(u'backers', (
+            ('user', self.gf('cross_founding_platform.cross_founding.fields.AutoOneToOneField')(to=orm['auth.User'], unique=True, primary_key=True)),
+            ('gender', self.gf('django.db.models.fields.IntegerField')(default=1, max_length=1)),
+            ('dob_at', self.gf('django.db.models.fields.DateField')()),
+            ('profession', self.gf('django.db.models.fields.IntegerField')(default=1, max_length=2)),
+            ('location', self.gf('django.db.models.fields.CharField')(max_length=16)),
+        ))
+        db.send_create_signal('cross_founding', ['Backer'])
 
 
     def backwards(self, orm):
-        db.delete_unique('auth_user', ['email'])
+        # Deleting model 'Backer'
+        db.delete_table(u'backers')
 
 
     models = {
@@ -54,12 +62,12 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         'cross_founding.backer': {
-            'Meta': {'object_name': 'Backer', '_ormbases': ['auth.User']},
+            'Meta': {'object_name': 'Backer', 'db_table': "u'backers'"},
             'dob_at': ('django.db.models.fields.DateField', [], {}),
-            'gender': ('django.db.models.fields.CharField', [], {'max_length': '2'}),
+            'gender': ('django.db.models.fields.IntegerField', [], {'default': '1', 'max_length': '1'}),
             'location': ('django.db.models.fields.CharField', [], {'max_length': '16'}),
-            'profession': ('django.db.models.fields.CharField', [], {'max_length': '15', 'blank': 'True'}),
-            'user_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
+            'profession': ('django.db.models.fields.IntegerField', [], {'default': '1', 'max_length': '2'}),
+            'user': ('cross_founding_platform.cross_founding.fields.AutoOneToOneField', [], {'to': "orm['auth.User']", 'unique': 'True', 'primary_key': 'True'})
         }
     }
 
