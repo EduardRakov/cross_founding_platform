@@ -2,19 +2,28 @@
 
 {% block title %}Login{% endblock %}
 
+{% load display_errors %}
+
 {% block content %}
+    {% if form.errors %}
+        <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
+            <div style="height:100%; width:100% ; margin-top: 175px;"
+                 class="alert alert-error">
+                <div style="width: 100%; margin-bottom: -10px;margin-right: -50px">
+                    {{ form|display_errors:""|safe }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
     <section style="width: 1000px">
-        <article class="my-article">
-            <h1 class="header" style="padding-bottom: 30px; font-family:Georgia;">Sign in to CFP</h1>
-            {% if form.errors %}
-                <p>Your username and password didn't match. Please try again.</p>
-            {% endif %}
+        <article class="my-article" style="height: 350px; margin-top: 27%">
+            <h1 class="header" style="padding-bottom: 30px; font-family: bentonsans, 'Times New Roman', cursive">Sign in to CFP</h1>
             <aside style="width: 250px;">
-                <button id="facebook" class="btn" style="width: 243px; height: 43px; background:#3b5998; ">
+                <button id="facebook" class="btn" style="width: 243px; height: 43px; background:#3b5998; margin-bottom: 10px">
                     <i class="facebook_24"></i>
                     <span style="text-shadow:none; font-size: large">Sign in with Facebook</span>
                 </button>
-                <p></p>
+
                 <button id="twitter" class="btn" style="width: 243px; height: 43px; background: #22b8e9; ">
                     <i class="twitter_24"></i>
                     <span style="text-shadow:none; font-size: large; margin-left: 4px">Sign in with Twitter</span>
@@ -22,26 +31,28 @@
             </aside>
 
             <div class="main">
-                <form id="SignInForm" action="" method="post" class="well"
-                      style="margin-top: -110px; padding-top: 0px;">{% csrf_token %}
-                    <table>
-                        <tr>
-                            <td>{{ form.username.label_tag }}</td>
-                            <td>{{ form.username }}</td>
-                        </tr>
-                        <tr>
-                            <td>{{ form.password.label_tag }}</td>
-                            <td>{{ form.password }}</td>
-                        </tr>
-                    </table>
-                    <p><a href="{% url auth_password_reset %}">Forgot</a> your password? <a
-                            href="{% url registration_register %}">Need
-                        an account</a>?</p>
+                <form id="sign_in_form" action="" method="post" class="well"
+                      style="margin-top: -110px; padding-top: 0px; height: 180px;">{% csrf_token %}
+                    <div {% if form.non_field_errors %}class="my-alert"{% endif %}>
+                        {{ form.username.label_tag }}
+                        <div {% if form.username.errors %}class="my-alert"{% endif %}>
+                            {{ form.username }}
+                        </div>
+                        {{ form.password.label_tag }}
+                        <div {% if form.password.errors %}class="my-alert"{% endif %}>
+                        {{ form.password }}
+                        </div>
+                    </div>
+                    <p> <a href="{% url auth_password_reset %}">Forgot</a> your password?
+                        Stay signed in</p>
+                    <div id="article_footer" style="background-color: #ffffff; height: 60px; float: left; margin-left: -300px; margin-top: 35px; width: 800px">
+                        <div>
+                        <p class="my-span" style="margin-top: 20px;">Don't have a CFP account? <a href="{% url registration_register %}">Create one now.</a></p>
+                        </div>
+                        <input form="sign_in_form" type="submit" class="btn square" value="Sign in"
+                               style="text-align:center;height: 40px; width: 80px; margin-left: 88%; margin-top: -60px">
+                    </div>
                 </form>
-            </div>
-            <div id="article_footer" style="background-color: #ffffff; height: 60px">
-                <input form="SignInForm" type="submit" class="btn square" value="Sign in"
-                       style="text-align:center;height: 40px; width: 80px; margin-left: 88%; margin-top: 10px">
             </div>
         </article>
     </section>

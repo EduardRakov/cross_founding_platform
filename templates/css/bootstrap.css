@@ -30,6 +30,7 @@ video {
 }
 
 h1 {
+    font-family: bentonsans, 'Comic Sans MS', cursive;
     font-size: 22px;
     font-weight: 200;
     width: 300px;
@@ -716,9 +717,10 @@ h3,
 h4,
 h5,
 h6 {
+
     width:300px;
   margin: 10px 0;
-  font-family: inherit;
+  font-family: bentonsans, 'Comic Sans MS', cursive;
   font-weight: bold;
   line-height: 20px;
   color: inherit;
@@ -741,13 +743,13 @@ h2,
 h3 {
     width: 300px;
   line-height: 40px;
-    font-family:Georgia;
+    font-family: bentonsans, 'Comic Sans MS', cursive;
     padding-bottom: 30px;
 }
 
 h1 {
   font-size: 38.5px;
-    font-family:Georgia;
+    font-family: BentonSans, 'Comic Sans MS', cursive;
     padding-bottom: 30px;
 }
 
@@ -3085,7 +3087,7 @@ table th[class*="span"],
      box-shadow:none; background: none repeat scroll 0% 0% rgb(238, 238, 238); margin-top: -30%; border-top-width: 0px;border-right-width: 0px;border-bottom-width: 0px; margin-left: 30px;border-top-left-radius: 0%;border-bottom-left-radius: 0%;
 }
 .my-article{
-    width: 800px; margin-left: 300px; margin-top: 217px; height: 300px;
+    width: 800px; margin-left: 300px; margin-top: 217px; height: 400px;
 }
 .well blockquote {
   border-color: #ddd;
@@ -6286,7 +6288,17 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
     background-color:#eeeeee ;
 }
 
+.login-div-fields{
+
+}
 
 div.my-alert input {
     background-color: #f2dede;
 }
+
+div.login-div-fields input {
+    width: 100%;
+    background-color: #f89406;
+}
+
+

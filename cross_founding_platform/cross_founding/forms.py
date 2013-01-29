@@ -1,4 +1,4 @@
-from django.utils.datastructures import MultiValueDictKeyError
+from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -69,17 +69,20 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
 
     month_dob = forms.CharField(label=_('Month'), max_length=2, required=True,
         widget=forms.TextInput(attrs={'placeholder': 'MM', 'class': 'input-block-new-day-level', 'tabindex': '5'}),
-        error_messages={'required': _(u'Input month'), 'invalid': _(u'Input valid month'),}
+        error_messages={'required': _(u'Input month'), 'invalid': _(u'Input valid month'), }
     )
 
     day_dob = forms.CharField(label=_('Day'), max_length=2, required=True,
         widget=forms.TextInput(attrs={'placeholder': 'DD', 'class': 'input-block-new-day-level', 'tabindex': '4'}),
-        error_messages={'required': _(u'Input day'), 'invalid': _(u'Input valid day'),}
+        error_messages={'required': _(u'Input day'), 'invalid': _(u'Input valid day'), }
     )
 
-    year_dob = forms.CharField(label=_('Year'), min_length=4, max_length=4, required=True,
+    year_dob = forms.RegexField(
+        regex=r'^[0-9]+$',
+        label=_('Year'),
+        max_length=4,
         widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level', 'tabindex': '6'}),
-        error_messages={'required': _(u'Input year'), 'invalid': _(u'Input valid year'),}
+        error_messages={'required': _(u'Input year'), 'invalid': _(u'Input valid year')}
     )
 
     gender = forms.ChoiceField(
@@ -111,8 +114,26 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
 
     def is_dob_valid(self):
         try:
-            self.get_dob()
-            return True
+            if (datetime.date.today() - self.get_dob()).days > 0:
+                return True
 
         except (KeyError, ValueError):
             return False
+
+    def clean_year_dob(self):
+        MIN_YEAR = 1900
+        year_dob = self.data['year_dob']
+
+        if int(year_dob) < MIN_YEAR:
+            self._errors['date_of_birth'] = self.error_class([u'Please, input valid date'])
+
+        return year_dob
+
+class BackerAuthenticationForm(AuthenticationForm):
+    username = forms.CharField(label=_("Username"), max_length=30,
+        widget=forms.TextInput(attrs={'class': 'input-block-level'}),
+        error_messages={'required': _(u'Input your username')})
+
+    password = forms.CharField(label=_("Password"),
+        widget=forms.PasswordInput(attrs={'class': 'input-block-level'}),
+        error_messages={'required': _(u'Input your password')})
