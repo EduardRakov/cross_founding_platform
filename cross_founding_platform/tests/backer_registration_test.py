@@ -27,7 +27,7 @@ class BackerRegistrationCase(TestCase):
                 'password1': 'secret',
                 'first_name': 'Joe',
                 'last_name': 'Doe',
-                'year_dob': '1990', 'month_dob': '01', 'day_dob': '01',
+                'year_dob': '1900', 'month_dob': '01', 'day_dob': '01',
                 'gender': '1'
         }
 
@@ -36,6 +36,8 @@ class BackerRegistrationCase(TestCase):
         self.assertEqual(response.request['REQUEST_METHOD'], 'POST')
         self.user = User.objects.all()
         self.assertTrue(len(User.objects.all()))
+        user = User.objects.get(username='joedoe')
+        self.assertNotEqual(user.password, "secret")
 
     def test_should_validation_form_sign_in_without_data(self):
         data = {'username': '', 'password': ''}
