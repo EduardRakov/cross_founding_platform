@@ -44,7 +44,7 @@
                         </div>
                     </div>
                     <p> <a href="{% url auth_password_reset %}">Forgot</a> your password?
-                        Stay signed in</p>
+                        {{ form.stay_signed_in }} Stay signed in</p>
                     <div id="article_footer" style="background-color: #ffffff; height: 60px; float: left; margin-left: -300px; margin-top: 35px; width: 800px">
                         <div>
                         <p class="my-span" style="margin-top: 20px;">Don't have a CFP account? <a href="{% url registration_register %}">Create one now.</a></p>

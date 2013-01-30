@@ -3,6 +3,7 @@
 {% block title %} Sign Up form {% endblock %}
 
 {% load display_errors %}
+{% load show_label %}
 
 {% block content %}
     {% if form.errors %}
@@ -18,18 +19,21 @@
     <section class="main-section" style="">
         <article class="my-article">
             <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
-
             <aside class="main-aside">
-                <button id="facebook" class="btn" style="background:#3b5998;">
-                    <div>
+
+                <a href="/facebook/connect/?facebook_login=1">
+                    <button id="facebook" class="btn" style="background:#3b5998;">
                         <div>
-                            <i class="facebook_24"></i>
+                            <div>
+                                <i class="facebook_24"></i>
+                            </div>
+                            <div class="facebook-btn-div">
+                                <span class="facebook-btn-span">Sign in with Facebook</span>
+                            </div>
                         </div>
-                        <div class="facebook-btn-div">
-                            <span class="facebook-btn-span">Sign in with Facebook</span>
-                        </div>
-                    </div>
-                </button>
+                    </button>
+                </a>
+
                 <p></p>
                 <button id="twitter" class="btn" style="background: #22b8e9;">
                     <div>
@@ -68,7 +72,7 @@
                         <div {% if form.email.errors %}class="my-alert"{% endif %}>
                             {{ form.email }}
                         </div>
-                        {{ form.day_dob.label }}
+                        {{ form|show_label:"Date of birth" }}
                         <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}

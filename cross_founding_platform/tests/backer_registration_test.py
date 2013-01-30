@@ -62,7 +62,6 @@ class BackerRegistrationCase(TestCase):
         response = self.client.post(LOGIN_URI, {'username': 'joedoe', 'password': 'secret'})
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response["location"], 'http://testserver/accounts/profile/')
         self.assertEqual(response.request['REQUEST_METHOD'], 'POST')
 
     def get_form_fields(self):

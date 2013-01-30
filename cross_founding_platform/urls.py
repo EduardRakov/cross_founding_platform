@@ -16,14 +16,30 @@ urlpatterns = patterns('',
         'registration.views.register',
         {'backend': 'registration.backends.default.DefaultBackend', 'form_class': BackerRegistrationForm},
         name='registration_register'),
+
     url(r'^accounts/login/$',
-        auth_views.login,
+        'cross_founding_platform.cross_founding.views.login',
         {'authentication_form': BackerAuthenticationForm},
         name='auth_login',
     ),
-#    url(r'^register/$', 'cross_founding_platform.cross_founding.views.backer_registration'),
-#    url(r'^social/', include('socialregistration.urls', namespace = 'socialregistration')),
+
+    url(r'^accounts/password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
+        'cross_founding_platform.cross_founding.views.password_reset_confirm',
+        name='auth_password_reset_confirm'),
+
+    url(r'^facebook_accounts/register/$',
+        'registration.views.register',
+        {'backend': 'registration.backends.default.DefaultBackend', 'form_class': BackerRegistrationForm},
+        name='registration_register'),
+
+    url(r'^facebook/', include('django_facebook.urls')),
+
+    url(r'^facebook_accounts/', include('django_facebook.auth_urls')),
+
+
     url(r'^accounts/', include(regUrls)),
+
     url(r'^accounts/profile', 'cross_founding_platform.cross_founding.views.profile'),
+
     url(r'^admin/', include(admin.site.urls)),
 )

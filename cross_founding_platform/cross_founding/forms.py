@@ -1,4 +1,4 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -137,3 +137,21 @@ class BackerAuthenticationForm(AuthenticationForm):
     password = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput(attrs={'class': 'input-block-level'}),
         error_messages={'required': _(u'Input your password')})
+
+    stay_signed_in = forms.BooleanField(required=False, initial=False,
+        widget=forms.CheckboxInput(attrs={'class': 'login-checkbox'}))
+
+
+class PasswordRecoveryForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_(u'New password:'), min_length=6, widget=forms.PasswordInput,
+        error_messages={
+            'required': _(u'Input new password'),
+            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+        })
+
+    new_password2 = forms.CharField(label=_(u'New password confirmation:'), min_length=6,
+        widget=forms.PasswordInput, error_messages={
+            'required': _(u'Input new password'),
+            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+        })
+
