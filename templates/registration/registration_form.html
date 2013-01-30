@@ -7,11 +7,11 @@
 
 {% block content %}
     {% if form.errors %}
-    <div style="position: absolute;margin-left: 580px;margin-top: -15%;">
-        <div style="height:100%; width:100% ; margin-top: 50px;"
+    <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
+        <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;"
              class="alert alert-error">
-            <div style="width: 100%;">
-                 {{ form|display_errors:"year_dob, month_dob, day_dob"|safe }}
+            <div style="width: 100%; margin-bottom: -10px;">
+                 {{ form|display_errors:"day_dob, month_dob, year_dob"|safe }}
             </div>
         </div>
     </div>
@@ -20,20 +20,16 @@
         <article class="my-article">
             <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
             <aside class="main-aside">
-
-                <a href="/facebook/connect/?facebook_login=1">
-                    <button id="facebook" class="btn" style="background:#3b5998;">
+                <button id="facebook" class="btn" style="background:#3b5998;">
+                    <div>
                         <div>
-                            <div>
-                                <i class="facebook_24"></i>
-                            </div>
-                            <div class="facebook-btn-div">
-                                <span class="facebook-btn-span">Sign in with Facebook</span>
-                            </div>
+                            <i class="facebook_24"></i>
                         </div>
-                    </button>
-                </a>
-
+                        <div class="facebook-btn-div">
+                            <span class="facebook-btn-span">Sign in with Facebook</span>
+                        </div>
+                    </div>
+                </button>
                 <p></p>
                 <button id="twitter" class="btn" style="background: #22b8e9;">
                     <div>
@@ -72,7 +68,7 @@
                         <div {% if form.email.errors %}class="my-alert"{% endif %}>
                             {{ form.email }}
                         </div>
-                        {{ form|show_label:"Date of birth" }}
+                        {{ form|show_label:'Date of birth' }}
                         <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
@@ -97,7 +93,6 @@
                         href="#">privacy policy</a></span>
                 </div>
             </form>
-
         </article>
     </section>
 {% endblock %}
