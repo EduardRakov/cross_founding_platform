@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from django_facebook import signals
+from django_facebook.signals import user_registered
 
 from south.modelsinspector import add_introspection_rules
 

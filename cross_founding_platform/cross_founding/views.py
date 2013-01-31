@@ -11,9 +11,12 @@ from django.utils.http import is_safe_url, base36_to_int
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
+from django_facebook.utils import get_registration_backend
 from cross_founding_platform import settings
 from django.contrib.auth.tokens import default_token_generator
 from cross_founding_platform.cross_founding.forms import PasswordRecoveryForm
+from django.template.context import RequestContext
+
 
 def profile(request):
     return render_to_response("profile.html")
