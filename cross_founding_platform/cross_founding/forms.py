@@ -154,4 +154,3 @@ class PasswordRecoveryForm(SetPasswordForm):
             'required': _(u'Input new password'),
             'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
         })
-
