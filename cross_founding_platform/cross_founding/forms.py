@@ -143,14 +143,22 @@ class BackerAuthenticationForm(AuthenticationForm):
 
 
 class PasswordRecoveryForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=_(u'New password:'), min_length=6, widget=forms.PasswordInput,
+    new_password1 = forms.CharField(
+        label=_(u'New password:'),
+        min_length=6,
+        widget=forms.PasswordInput,
         error_messages={
             'required': _(u'Input new password'),
             'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
-        })
+        }
+    )
 
-    new_password2 = forms.CharField(label=_(u'New password confirmation:'), min_length=6,
-        widget=forms.PasswordInput, error_messages={
+    new_password2 = forms.CharField(
+        label=_(u'New password confirmation:'),
+        min_length=6,
+        widget=forms.PasswordInput,
+        error_messages={
             'required': _(u'Input new password'),
             'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
-        })
+        }
+    )
