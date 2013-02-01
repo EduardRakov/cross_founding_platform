@@ -9,14 +9,10 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
 
-        # Changing field 'Backer.profession'
-        db.alter_column(u'backers', 'profession', self.gf('django.db.models.fields.IntegerField')(max_length=1))
         db.create_unique('auth_user', ['email'])
 
     def backwards(self, orm):
 
-        # Changing field 'Backer.profession'
-        db.alter_column(u'backers', 'profession', self.gf('django.db.models.fields.IntegerField')(max_length=2))
         db.delete_unique('auth_user', ['email'])
 
     models = {

@@ -44,7 +44,6 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/accounts/profile'
 
-
 STATICFILES_DIRS = (
     '/home/eduardr/PycharmProjects/cross_founding_platform/templates',
 )
@@ -55,10 +54,6 @@ STATICFILES_FINDERS = (
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     )
 
-AUTHENTICATION_BACKENDS = (
-    'django_facebook.auth_backends.FacebookBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'gs-lxj*lkl1qvkcgz+ao(hyyp&amp;&amp;0@l2qhep0sni%t!b(_0k2jk'
@@ -88,30 +83,6 @@ WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 
 TEMPLATE_DIRS = ('/home/eduardr/PycharmProjects/cross_founding_platform/templates',)
 
-AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'info@example.com'
-#
-#FACEBOOK_APP_ID = '467506353311178'
-#FACEBOOK_SECRET_KEY = 'd5f87532dc5623a3373453c61ba3f0c9'
-#FACEBOOK_REQUEST_PERMISSIONS = ''
-
-FACEBOOK_APP_ID = '467506353311178'
-FACEBOOK_APP_SECRET = 'd5f87532dc5623a3373453c61ba3f0c9'
-
-FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
-
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django_facebook.context_processors.facebook',
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    )
-
 INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -120,21 +91,56 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    # 'django.contrib.admindocs',
-    'cross_founding_platform.cross_founding',
-#    'south',
+    #'django.contrib.admindocs',
+    #'south',
     'openid',
     'oauth2',
     'registration',
     'django_nose',
     'django_facebook',
     'auth_remember',
-#    'socialregistration',
-#    'socialregistration.contrib.facebook',
+    #'socialregistration',
+    #'socialregistration.contrib.facebook',
+    'cross_founding_platform.cross_founding',
 
-    )
+)
+
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'info@example.com'
+
+############################################################
+#FaceBook configuration
+############################################################
+
+FACEBOOK_APP_ID = '467506353311178'
+FACEBOOK_APP_SECRET = 'd5f87532dc5623a3373453c61ba3f0c9'
+
+FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
 
 AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
+
+#AUTH_PROFILE_MODULE = 'cross_founding.Backer'
+
+#FACEBOOK_STORE_LIKES = True
+#FACEBOOK_STORE_FRIENDS = True
+FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/accounts/register/complete/'
+
+#AUTH_PROFILE_MODULE = 'member.UserProfile'
+
+############################################################
+#end FaceBook configuration
+############################################################
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django_facebook.context_processors.facebook',
+)
 
 ACCOUNT_ACTIVATION_DAYS = 2
 

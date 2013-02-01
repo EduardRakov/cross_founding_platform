@@ -17,7 +17,8 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     username = forms.RegexField(regex=r'^[\w.@+-]+$',
         min_length=4,
         max_length=30,
-        widget=forms.TextInput(attrs={'class': 'required', 'tabindex': '1'}),
+        widget=forms.TextInput(
+            attrs={'class': 'validate[required,custom[onlyLetterNumber],minSize[4]] text-input', 'tabindex': '1'}),
         label=_("Username"),
         error_messages={
             'required': _(u'Input your username'),
@@ -27,12 +28,14 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         }
     )
 
-    email = forms.EmailField(widget=forms.TextInput(attrs=dict({'class': 'required', 'tabindex': '2'}, maxlength=75)),
+    email = forms.EmailField(widget=forms.TextInput(
+        attrs=dict({'class': 'validate[required,custom[email]]', 'tabindex': '2'}, maxlength=75)),
         label=_("E-mail"), error_messages={'required': _(u'Input your email address')})
 
     password1 = forms.CharField(
         min_length=6,
-        widget=forms.PasswordInput(attrs={'class': 'required', 'tabindex': '3'}, render_value=False),
+        widget=forms.PasswordInput(attrs={'class': 'validate[required,minSize[6]]', 'tabindex': '3'},
+            render_value=False),
         label=_("Password"),
         error_messages={
             'required': _(u'Input your password'),
@@ -43,7 +46,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
 
     first_name = forms.RegexField(
         regex=r'^([a-zA-Z])+$',
-        widget=forms.TextInput(attrs={'tabindex': '7'}),
+        widget=forms.TextInput(attrs={'class': 'validate[required,custom[onlyLetterSp]] text-input', 'tabindex': '7'}),
         max_length=30,
         min_length=2,
         label=_('First Name'),
@@ -56,7 +59,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
 
     last_name = forms.RegexField(
         regex=r'^([a-zA-Z])+$',
-        widget=forms.TextInput(attrs={'tabindex': '8'}),
+        widget=forms.TextInput(attrs={'class': 'validate[required,custom[onlyLetterSp]] text-inputr', 'tabindex': '8'}),
         max_length=30,
         min_length=2,
         label=_('Last Name'),
@@ -68,12 +71,16 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     )
 
     month_dob = forms.CharField(label=_('Month'), max_length=2, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'MM', 'class': 'input-block-new-day-level', 'tabindex': '5'}),
+        widget=forms.TextInput(attrs={'placeholder': 'MM',
+                                      'class': 'validate[required,custom[onlyNumberSp]] text-input input-block-new-day-level',
+                                      'tabindex': '5'}),
         error_messages={'required': _(u'Input month'), 'invalid': _(u'Input valid month'), }
     )
 
     day_dob = forms.CharField(label=_('Day'), max_length=2, required=True,
-        widget=forms.TextInput(attrs={'placeholder': 'DD', 'class': 'input-block-new-day-level', 'tabindex': '4'}),
+        widget=forms.TextInput(attrs={'placeholder': 'DD',
+                                      'class': 'validate[required,custom[onlyNumberSp]] text-input input-block-new-day-level',
+                                      'tabindex': '4'}),
         error_messages={'required': _(u'Input day'), 'invalid': _(u'Input valid day'), }
     )
 
@@ -81,19 +88,21 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         regex=r'^[0-9]+$',
         label=_('Year'),
         max_length=4,
-        widget=forms.TextInput(attrs={'placeholder': 'YYYY', 'class': 'input-block-new-year-level', 'tabindex': '6'}),
+        widget=forms.TextInput(attrs={'placeholder': 'YYYY',
+                                      'class': 'validate[required,custom[onlyNumberSp]] text-input input-block-new-year-level',
+                                      'tabindex': '6'}),
         error_messages={'required': _(u'Input year'), 'invalid': _(u'Input valid year')}
     )
 
     gender = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'styled-select', 'tabindex': '9'}),
+        widget=forms.Select(attrs={'class': 'required styled-select', 'tabindex': '9'}),
         choices=Backer.GENDER,
         label=_('Gender'),
         error_messages={'required': _(u'Select your gender')}
     )
 
     profession = forms.ChoiceField(
-        widget=forms.Select(attrs={'class': 'styled-select', 'tabindex': '10'}),
+        widget=forms.Select(attrs={'class': 'required styled-select', 'tabindex': '10'}),
         choices=Backer.PROFESSION,
         required=False,
         label=_('Profession')
@@ -128,6 +137,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
             self._errors['date_of_birth'] = self.error_class([u'Please, input valid date'])
 
         return year_dob
+
 
 class BackerAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_("Username"), max_length=30,

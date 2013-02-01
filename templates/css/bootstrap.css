@@ -6304,3 +6304,8 @@ div.login-div-fields input {
     margin-bottom: 5px;
     margin-top: 0px;
 }
+
+input.error {
+    background-color: #ffc0cb;
+    border-color: #ff4500;
+}
