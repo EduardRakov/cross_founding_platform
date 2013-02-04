@@ -9,6 +9,17 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+#PASSWORD_HASHERS = (
+#    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+#    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+#    'django.contrib.auth.hashers.BCryptPasswordHasher',
+#    'django.contrib.auth.hashers.SHA1PasswordHasher',
+#    'django.contrib.auth.hashers.MD5PasswordHasher',
+#    'django.contrib.auth.hashers.CryptPasswordHasher',
+##    'root',
+#    )
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
@@ -34,18 +45,16 @@ USE_L10N = True
 USE_TZ = True
 
 
-MEDIA_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/templates'
+MEDIA_ROOT = '/home/dmitryg/PycharmProjects/cross_founding_platform/templates'
 
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
+STATIC_ROOT = '/home/dmitryg/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/templates/'
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = '/accounts/profile'
-
 STATICFILES_DIRS = (
-    '/home/eduardr/PycharmProjects/cross_founding_platform/templates',
+    '/home/dmitryg/PycharmProjects/cross_founding_platform/templates',
 )
 
 STATICFILES_FINDERS = (
@@ -53,7 +62,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
     )
-
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'gs-lxj*lkl1qvkcgz+ao(hyyp&amp;&amp;0@l2qhep0sni%t!b(_0k2jk'
@@ -65,13 +73,16 @@ TEMPLATE_LOADERS = (
     #     'django.template.loaders.eggs.Loader',
     )
 
+LOGIN_REDIRECT_URL = '/accounts/profile'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'auth_remember.middleware.AuthRememberMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
     )
@@ -81,7 +92,37 @@ ROOT_URLCONF = 'cross_founding_platform.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 
-TEMPLATE_DIRS = ('/home/eduardr/PycharmProjects/cross_founding_platform/templates',)
+TEMPLATE_DIRS = ('/home/dmitryg/PycharmProjects/cross_founding_platform/templates',)
+#
+#TEMPLATE_CONTEXT_PROCESSORS = (
+#    "django.core.context_processors.request",
+#    "allauth.account.context_processors.account",
+#    "allauth.socialaccount.context_processors.socialaccount",
+#    )
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    "django.contrib.auth.backends.ModelBackend",
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    "allauth.account.auth_backends.AuthenticationBackend",
+
+    )
+
+AUTH_USER_EMAIL_UNIQUE = True
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+
+#BANDIT_EMAIL = 'bandit@example.com'
+DEFAULT_FROM_EMAIL = 'info@google.ru'
+#EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'  #email in file
+#EMAIL_FILE_PATH = '/home/dmitryg/test_email_folder/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #email in console
+#EMAIL_BACKEND = 'bandit.backends.smtp.HijackSMTPBackend' #bandit email
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -90,57 +131,31 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    #'django.contrib.admindocs',
-    #'south',
-    'openid',
-    'oauth2',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+    'south',
     'registration',
     'django_nose',
-    'django_facebook',
-    'auth_remember',
-    #'socialregistration',
-    #'socialregistration.contrib.facebook',
+    'cross_founding_platform.cross_founding.templatetags',
+    'bandit',
+    'selenium',
+    'splinter',
+#    'allauth',
+#    'allauth.account',
+#    'allauth.socialaccount',
+#    'allauth.socialaccount.providers.facebook',
     'cross_founding_platform.cross_founding',
+    )
 
-)
+SOCIALACCOUNT_PROVIDERS =\
+{ 'facebook':
+      { 'SCOPE': ['email', 'publish_stream'],
+        'METHOD': 'oauth2' ,
+        'LOCALE_FUNC': 'path.to.callable'} }
 
-AUTH_USER_EMAIL_UNIQUE = True
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
-EMAIL_HOST_USER = ''
-EMAIL_HOST_PASSWORD = ''
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'info@example.com'
-
-############################################################
-#FaceBook configuration
-############################################################
-
-FACEBOOK_APP_ID = '467506353311178'
-FACEBOOK_APP_SECRET = 'd5f87532dc5623a3373453c61ba3f0c9'
-
-FACEBOOK_REGISTRATION_BACKEND = 'registration.backends.default.DefaultBackend'
-
-AUTH_PROFILE_MODULE = 'django_facebook.FacebookProfile'
-
-#AUTH_PROFILE_MODULE = 'cross_founding.Backer'
-
-#FACEBOOK_STORE_LIKES = True
-#FACEBOOK_STORE_FRIENDS = True
-FACEBOOK_LOGIN_DEFAULT_REDIRECT = '/accounts/register/complete/'
-
-#AUTH_PROFILE_MODULE = 'member.UserProfile'
-
-############################################################
-#end FaceBook configuration
-############################################################
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.contrib.messages.context_processors.messages',
-    'django_facebook.context_processors.facebook',
-)
+AUTH_PROFILE_MODULE = 'cross_founding.model.backer'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 
