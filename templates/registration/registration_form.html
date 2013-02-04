@@ -8,8 +8,7 @@
 {% block content %}
     {% if form.errors %}
     <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
-        <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;"
-             class="alert alert-error">
+        <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;" class="alert alert-error">
             <div style="width: 100%; margin-bottom: -10px;">
                  {{ form|display_errors:"day_dob, month_dob, year_dob"|safe }}
             </div>
@@ -47,15 +46,15 @@
                 <div class="main">
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">
                         {{ form.username.label }}
-                        <div {% if form.username.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.username.errors %}class="error-alert"{% endif %}>
                             {{ form.username }}
                         </div>
                         {{ form.password1.label }}
-                        <div {% if form.password1.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.password1.errors %}class="error-alert"{% endif %}>
                             {{ form.password1 }}
                         </div>
                         {{ form.first_name.label }}
-                        <div {% if form.first_name.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.first_name.errors %}class="error-alert"{% endif %}>
                             {{ form.first_name }}
                         </div>
                         {{ form.gender.label }}
@@ -65,22 +64,22 @@
                     </div>
                     <div class="right-block" style="float: right">
                         {{ form.email.label }}
-                        <div {% if form.email.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.email.errors %}class="error-alert"{% endif %}>
                             {{ form.email }}
                         </div>
                         {{ form|show_label:'Date of birth' }}
-                        <div style="height: 50px" {% if form.errors.date_of_birth %}class="my-alert"{% endif %}>
+                        <div style="height: 50px" {% if form.errors.date_of_birth %}class="error-alert"{% endif %}>
                             {{ form.day_dob }}
                             {{ form.month_dob }}
                             {{ form.year_dob }}
                         </div>
                         <p></p>
                         {{ form.last_name.label }}
-                        <div {% if form.last_name.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.last_name.errors %}class="error-alert"{% endif %}>
                             {{ form.last_name }}
                         </div>
                         {{ form.profession.label }}
-                        <div {% if form.profession.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.profession.errors %}class="error-alert"{% endif %}>
                             {{ form.profession }}
                         </div>
                     </div>

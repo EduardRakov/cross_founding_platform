@@ -1,6 +1,13 @@
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
 from django import forms
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.models import get_current_site
+from django.utils.http import int_to_base36
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import User
+from django.contrib.auth.hashers import UNUSABLE_PASSWORD, is_password_usable, get_hasher
+from django.template import loader
+from django.utils.encoding import smart_str
 
 import datetime
 
@@ -129,6 +136,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
 
         return year_dob
 
+
 class BackerAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_("Username"), max_length=30,
         widget=forms.TextInput(attrs={'class': 'input-block-level'}),
@@ -137,3 +145,67 @@ class BackerAuthenticationForm(AuthenticationForm):
     password = forms.CharField(label=_("Password"),
         widget=forms.PasswordInput(attrs={'class': 'input-block-level'}),
         error_messages={'required': _(u'Input your password')})
+
+    stay_signed_in = forms.BooleanField(required=False, initial=False,
+        widget=forms.CheckboxInput(attrs={'class': 'login-checkbox'}))
+
+
+class PasswordRecoveryForm(SetPasswordForm):
+    new_password1 = forms.CharField(label=_(u'NEW PASSWORD'), min_length=6, widget=forms.PasswordInput,
+        error_messages={
+            'required': _(u'Input new password'),
+            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+        })
+
+    new_password2 = forms.CharField(label=_(u'VERIFY PASSWORD'), min_length=6,
+        widget=forms.PasswordInput, error_messages={
+            'required': _(u'Input new password'),
+            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+        })
+
+
+class EmailRecoveryForm(forms.Form):
+    email = forms.EmailField(label=_(u'EMAIL'), max_length=75)
+    error_messages = {
+        'unknown': _("That e-mail address doesn't have an associated "
+                     "user account"),
+        'unusable': _("The user account associated with this e-mail "
+                      "address cannot reset the password"),
+        }
+    def clean_email(self):
+        email = self.cleaned_data["email"]
+        self.users_cache = User.objects.filter(email__iexact=email,
+            is_active=True)
+        if not len(self.users_cache):
+            raise forms.ValidationError(self.error_messages['unknown'])
+        if any((user.password == UNUSABLE_PASSWORD)
+            for user in self.users_cache):
+            raise forms.ValidationError(self.error_messages['unusable'])
+        return email
+
+    def save(self, domain_override=None,
+             subject_template_name='registration/password_reset_subject.txt',
+             email_template_name='registration/password_reset_email.html',
+             use_https=False, token_generator=default_token_generator,
+             from_email=None, request=None):
+        from django.core.mail import send_mail
+        for user in self.users_cache:
+            if not domain_override:
+                current_site = get_current_site(request)
+                site_name = current_site.name
+                domain = current_site.domain
+            else:
+                site_name = domain = domain_override
+            c = {
+                'email': user.email,
+                'domain': domain,
+                'site_name': site_name,
+                'uid': int_to_base36(user.id),
+                'user': user,
+                'token': token_generator.make_token(user),
+                'protocol': use_https and 'https' or 'http',
+                }
+            subject = loader.render_to_string(subject_template_name, c)
+            subject = ''.join(subject.splitlines())
+            email = loader.render_to_string(email_template_name, c)
+            send_mail(subject, email, from_email, [user.email])

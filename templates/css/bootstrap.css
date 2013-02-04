@@ -224,6 +224,7 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /*font-family: BentonSans,"Lucida Sans","Lucida Grande",sans-serif;*/
   font-size: 14px;
   line-height: 20px;
   color: #333333;
@@ -718,13 +719,18 @@ h3,
 h4,
 h5,
 h6 {
-
+    font-family: BentonSans,"Lucida Sans","Lucida Grande",sans-serif;
     width:300px;
   margin: 10px 0;
   font-weight: bold;
   line-height: 20px;
   color: inherit;
   text-rendering: optimizelegibility;
+}
+
+button, input, textarea {
+    font-family: inherit;
+    font-size: inherit;
 }
 
 h1 small,
@@ -1150,9 +1156,9 @@ input[type="color"]:focus,
 
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
-  margin-top: 1px \9;
-  *margin-top: 0;
+  /*margin: 0px 0 0;*/
+  margin-top: 0px;
+  *margin-top: 0px;
   line-height: normal;
   cursor: pointer;
 }
@@ -6282,16 +6288,26 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
     height: 300px;
 }
 
-.my-alert{
-    background-color:#eeeeee ;
+div.error-alert input{
+    background-color:#f2dede ;
+}
+
+div.error-alert-email input{
+    background-color:#f2dede ;
+    width: 96%
+}
+
+div.email-input input{
+    width: 96%;
 }
 
 .login-div-fields{
 
 }
 
-div.my-alert input {
+div.div-input input {
     background-color: #f2dede;
+    width: 100%;
 }
 
 div.login-div-fields input {
@@ -6303,4 +6319,25 @@ div.login-div-fields input {
     margin-left: 5px;
     margin-bottom: 5px;
     margin-top: 0px;
+}
+
+.test{
+    font-family: BentonSans,"Arial","Bitstream Vera Sans Mono",sans-serif;
+    color: #797C80;
+}
+
+.confirmation{
+    /*background: url("https://x.myspacecdn.com/new/common/images/emailconf.png");*/
+    background: url(image/emailconf.png) no-repeat scroll 0 0 transparent;
+    /*display: none;*/
+    max-width: 300px;
+    padding-left: 120px;
+    text-align: left;
+}
+
+.password-reset-input{
+    width: 100%;
+    height: 21px;
+    padding: 10px;
+    margin-top: 5px;
 }

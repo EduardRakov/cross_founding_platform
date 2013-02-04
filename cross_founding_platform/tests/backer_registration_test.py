@@ -1,6 +1,10 @@
 from unittest import TestCase
+from registration.models import RegistrationProfile
+
+from splinter import Browser
 
 from django.contrib.auth.models import User
+from django.core import mail
 from django.test import Client
 
 #print >> sys.stderr,
@@ -8,6 +12,8 @@ import sys
 
 REGISTER_URI = "/accounts/register/"
 LOGIN_URI = "/accounts/login/"
+PASSWORD_RESET_URI = '/accounts/password/reset/'
+ACCOUNTS_RESET_CONFIRM_URI = '/accounts/password/reset/confirm/'
 
 class BackerRegistrationCase(TestCase):
     def setUp(self):
@@ -36,8 +42,8 @@ class BackerRegistrationCase(TestCase):
         self.assertEqual(response.request['REQUEST_METHOD'], 'POST')
         self.user = User.objects.all()
         self.assertTrue(len(User.objects.all()))
-        user = User.objects.get(username='joedoe')
-        self.assertNotEqual(user.password, "secret")
+        self.user = User.objects.get(username='joedoe')
+        self.assertNotEqual(self.user.password, "secret")
 
     def test_should_validation_form_sign_in_without_data(self):
         data = {'username': '', 'password': ''}
@@ -62,8 +68,32 @@ class BackerRegistrationCase(TestCase):
         response = self.client.post(LOGIN_URI, {'username': 'joedoe', 'password': 'secret'})
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response["location"], 'http://testserver/accounts/profile/')
         self.assertEqual(response.request['REQUEST_METHOD'], 'POST')
+
+    def test_should_send_notification_email_after_backer_successful_registration(self):
+        data = {'username': 'joedoe',
+                'email': 'joe@example.com',
+                'password1': 'secret',
+                'first_name': 'Joe',
+                'last_name': 'Doe',
+                'year_dob': '1900', 'month_dob': '01', 'day_dob': '01',
+                'gender': '1'
+        }
+
+        self.assertEquals(len(mail.outbox), 0)
+        self.client.post(REGISTER_URI, data)
+        self.assertEquals(len(mail.outbox), 1)
+
+        user = User.objects.get(username='joedoe')
+        user.is_active = True
+        user.save()
+
+        response = self.client.post(LOGIN_URI, {'username': 'joedoe', 'password': 'secret'})
+        self.assertEqual(response.status_code, 302)
+
+        response = self.client.post(PASSWORD_RESET_URI, {'email': 'joe@example.com'})
+        self.assertEqual(response.status_code, 302)
+        self.assertEquals(len(mail.outbox), 2)
 
     def get_form_fields(self):
         return ['username', 'email', 'password1', 'first_name', 'last_name', 'year_dob', 'month_dob', 'day_dob',
