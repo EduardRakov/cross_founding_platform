@@ -12,6 +12,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 
+#    url(r'^/accounts/register/ajaxValidateFieldUser/$',
+#        'registration.views.register',
+#        {'backend': 'registration.backends.default.DefaultBackend', 'form_class': BackerRegistrationForm},
+#        name='registration_register'),
+
     url(r'^accounts/register/$',
         'registration.views.register',
         {'backend': 'registration.backends.default.DefaultBackend', 'form_class': BackerRegistrationForm},

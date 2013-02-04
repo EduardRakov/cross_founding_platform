@@ -33,5 +33,3 @@ def fb_user_registered_handler(sender, user, facebook_data, **kwargs):
     user.save()
 
 signals.facebook_user_registered.connect(fb_user_registered_handler, sender=User)
-
-

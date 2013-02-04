@@ -18,7 +18,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         min_length=4,
         max_length=30,
         widget=forms.TextInput(
-            attrs={'class': 'validate[required,custom[onlyLetterNumber],minSize[4]] text-input', 'tabindex': '1'}),
+            attrs={'class': 'validate[required,custom[onlyLetterNumber],minSize[4]], ajax[ajaxUserCall]] text-input', 'tabindex': '1'}),
         label=_("Username"),
         error_messages={
             'required': _(u'Input your username'),
