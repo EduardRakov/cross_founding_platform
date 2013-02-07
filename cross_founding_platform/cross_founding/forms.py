@@ -5,9 +5,8 @@ from django.contrib.sites.models import get_current_site
 from django.utils.http import int_to_base36
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django.contrib.auth.hashers import UNUSABLE_PASSWORD, is_password_usable, get_hasher
+from django.contrib.auth.hashers import UNUSABLE_PASSWORD
 from django.template import loader
-from django.utils.encoding import smart_str
 
 import datetime
 
@@ -151,27 +150,27 @@ class BackerAuthenticationForm(AuthenticationForm):
 
 
 class PasswordRecoveryForm(SetPasswordForm):
-    new_password1 = forms.CharField(label=_(u'NEW PASSWORD'), min_length=6, widget=forms.PasswordInput,
+    new_password1 = forms.CharField(label=_(u'New password'), min_length=6, widget=forms.PasswordInput,
         error_messages={
-            'required': _(u'Input new password'),
-            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+            'required': _(u'Please enter a new password'),
+            'min_length': _(u'Ensure the password is greater than or equal to %(limit_value)s.'),
         })
 
-    new_password2 = forms.CharField(label=_(u'VERIFY PASSWORD'), min_length=6,
+    new_password2 = forms.CharField(label=_(u'Verify password'), min_length=6,
         widget=forms.PasswordInput, error_messages={
-            'required': _(u'Input new password'),
-            'min_length': _(u'Ensure the first name is greater than or equal to %(limit_value)s.'),
+            'required': _(u'Please fill out verify password field'),
+            'min_length': _(u'Ensure the password is greater than or equal to %(limit_value)s.'),
         })
 
 
 class EmailRecoveryForm(forms.Form):
-    email = forms.EmailField(label=_(u'EMAIL'), max_length=75)
+    email = forms.EmailField(label=_(u'Email'), max_length=75)
     error_messages = {
-        'unknown': _("That e-mail address doesn't have an associated "
-                     "user account"),
-        'unusable': _("The user account associated with this e-mail "
-                      "address cannot reset the password"),
-        }
+        'required': _(u"Please enter your email"),
+        'unknown': _(u"That e-mail address doesn't have an associated user account"),
+        'unusable': _(u"The user account associated with this e-mail address cannot reset the password"),
+    }
+
     def clean_email(self):
         email = self.cleaned_data["email"]
         self.users_cache = User.objects.filter(email__iexact=email,
@@ -189,6 +188,7 @@ class EmailRecoveryForm(forms.Form):
              use_https=False, token_generator=default_token_generator,
              from_email=None, request=None):
         from django.core.mail import send_mail
+
         for user in self.users_cache:
             if not domain_override:
                 current_site = get_current_site(request)
@@ -204,7 +204,7 @@ class EmailRecoveryForm(forms.Form):
                 'user': user,
                 'token': token_generator.make_token(user),
                 'protocol': use_https and 'https' or 'http',
-                }
+            }
             subject = loader.render_to_string(subject_template_name, c)
             subject = ''.join(subject.splitlines())
             email = loader.render_to_string(email_template_name, c)

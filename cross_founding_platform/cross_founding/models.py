@@ -1,8 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
-from django_facebook import signals
-from django_facebook.signals import user_registered
 
 from south.modelsinspector import add_introspection_rules
 
@@ -34,3 +32,38 @@ class Backer(models.Model):
 
     class Meta:
         db_table = u'backers'
+
+class FacebookAccessToken(models.Model):
+    facebook_id = models.BigIntegerField(blank=True, unique=True, null=True)
+    access_token = models.TextField(blank=True, null=True)
+    expire_token = models.IntegerField(blank=True, null=True)
+
+    backer = models.OneToOneField(Backer, null=True, blank=True, unique=True)
+
+    class Meta:
+        db_table = u'facebookAccessTokens'
+
+    def disconnect_facebook(self):
+        self.access_token = None
+        self.facebook_id = None
+
+    def clear_access_token(self):
+        self.access_token = None
+        self.save()
+
+class TwitterAccessToken(models.Model):
+    twitter_id = models.BigIntegerField(blank=True, unique=True, null=True)
+    access_token = models.TextField(blank=True, null=True)
+
+    backer = models.OneToOneField(Backer, null=True, blank=True, unique=True)
+
+    class Meta:
+        db_table = u'twitterAccessTokens'
+
+    def disconnect_facebook(self):
+        self.access_token = None
+        self.twitter_id = None
+
+    def clear_access_token(self):
+        self.access_token = None
+        self.save()
