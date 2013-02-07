@@ -24,6 +24,10 @@ urlpatterns = patterns('',
         name='auth_login',
     ),
 
+    url(r'^facebook_register/', 'cross_founding_platform.cross_founding.views.facebook_register'),
+
+    url(r'^twitter_register/', 'cross_founding_platform.cross_founding.views.twitter_register'),
+
     url(r'^accounts/password/reset/confirm/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$',
         'cross_founding_platform.cross_founding.views.password_reset_confirm',
         name='auth_password_reset_confirm'),
