@@ -20,7 +20,7 @@
             <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
             <aside class="main-aside">
 
-                <a href="/facebook/connect/?facebook_login=1">
+                <a href="/facebook_register/">
                     <button id="facebook" class="btn" style="background:#3b5998;">
                         <div>
                             <div>
@@ -45,7 +45,7 @@
                     </div>
                 </button>
             </aside>
-            <form id="sign_up_form" method="post" class="well form"
+            <form id="sign_up_form" method="post" class="well form" action="/accounts/register/"
                   style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
                 <div class="main">
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">

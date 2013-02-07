@@ -1,9 +1,10 @@
+from datetime import datetime
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.sites.models import get_current_site
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect, render
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.core.urlresolvers import reverse
 from django.template.response import TemplateResponse
@@ -11,9 +12,23 @@ from django.utils.http import is_safe_url, base36_to_int
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from cross_founding_platform import settings
 from django.contrib.auth.tokens import default_token_generator
-from cross_founding_platform.cross_founding.forms import PasswordRecoveryForm, EmailRecoveryForm
+
+from cross_founding_platform import settings
+from cross_founding_platform.cross_founding.forms import PasswordRecoveryForm, EmailRecoveryForm, BackerRegistrationForm
+
+import simplejson
+import urllib
+import cgi
+import time
+
+OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?"
+ACCESS_TOKEN_URL = 'https://graph.facebook.com/oauth/access_token?'
+OAUTH_DIALOG_URL = "https://www.facebook.com/dialog/oauth?"
+GRAPH_API_URL = 'https://graph.facebook.com/me?access_token='
+REDIRECT_URI = 'http://127.0.0.1:8000/facebook_register/'
+APP_ID = settings.FACEBOOK_APP_ID
+APP_SECRET = settings.FACEBOOK_SECRET
 
 def profile(request):
     return render_to_response("profile.html")
@@ -143,3 +158,39 @@ def password_reset(request, is_admin_site=False,
         context.update(extra_context)
     return TemplateResponse(request, template_name, context,
         current_app=current_app)
+
+def facebook_register(request):
+    print 'valera1'
+    if not 'code' in request.GET:
+        print 'valera2'
+        key_value_perm_state = {'client_id': APP_ID, 'redirect_uri': REDIRECT_URI}
+
+        return redirect(OAUTH_DIALOG_URL + urllib.urlencode(key_value_perm_state))
+
+    else:
+        print 'valera3'
+        code = request.GET['code']
+        get_token = {'client_id': APP_ID, 'redirect_uri': REDIRECT_URI, 'client_secret': APP_SECRET, 'code': code}
+
+        response = cgi.parse_qs(urllib.urlopen(ACCESS_TOKEN_URL + urllib.urlencode(get_token)).read())
+
+        access_token = response['access_token'][0]
+        print 'valera4'
+        get_data_url = GRAPH_API_URL + access_token
+
+        json_data = urllib.urlopen(get_data_url).read()
+        data = simplejson.loads(json_data)
+
+        data['gender'] = 2 if data['gender'] == 'male' else 3
+
+        birthday = str(datetime.date(datetime.strptime(data['birthday'], "%m/%d/%Y"))).split('-')
+
+        data.update({'year_dob': birthday[0]})
+        data.update({'month_dob': birthday[1]})
+        data.update({'day_dob': birthday[2]})
+
+        form = BackerRegistrationForm(data)
+
+        return render(request, 'registration/registration_form.html', {
+            'form': form,
+            })
