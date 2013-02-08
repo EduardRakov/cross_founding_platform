@@ -53,6 +53,7 @@ class FacebookAccessToken(models.Model):
 class TwitterAccessToken(models.Model):
     twitter_id = models.BigIntegerField(blank=True, unique=True, null=True)
     access_token = models.TextField(blank=True, null=True)
+    secret_token = models.TextField(blank=True, null=True)
     backer = models.OneToOneField(Backer, null=True, blank=True, unique=True)
 
     class Meta:
