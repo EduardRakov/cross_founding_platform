@@ -29,6 +29,10 @@ class Backer(models.Model):
     dob_at = models.DateField(_('Date of birth'))
     profession = models.IntegerField(_('Profession'), max_length=1, choices=PROFESSION, default=PROFESSION.Unspecified)
     location = models.CharField(max_length=16)
+    twitter_user = models.BooleanField(_('twitter user'), default=True,
+        help_text=_('This user was registered via twitter'))
+    facebook_user = models.BooleanField(_('facebook user'), default=True,
+        help_text=_('This user was registered via facebook'))
 
     class Meta:
         db_table = u'backers'
