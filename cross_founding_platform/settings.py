@@ -65,6 +65,9 @@ TEMPLATE_LOADERS = (
     # 'django.template.loaders.eggs.Loader',
     )
 
+SESSION_COOKIE_AGE = 7200
+#SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -124,6 +127,8 @@ TWITTER_AUTHORIZATION_URL = 'https://api.twitter.com/oauth/authorize'
 TWITTER_AUTHENTICATE_URL = 'https://api.twitter.com/oauth/authenticate?oauth_token='
 TWITTER_OAUTH_CONSUMER_KEY = "SiAxtvUQc6Z6bVR2Vi0A"
 TWITTER_OAUTH_CONSUMER_SECRET_KEY = "sQgtyyO7siQyqEx6609ZfC052lOzsmGSOOh9VG0yvuk"
+
+AUTH_PROFILE_MODULE = 'cross_founding.Backer'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 

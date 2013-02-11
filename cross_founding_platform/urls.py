@@ -3,7 +3,6 @@ from django.conf.urls import patterns, include, url
 from django.contrib.auth import views as auth_views
 
 import registration.backends.default.urls as regUrls
-import cross_founding_platform
 
 from cross_founding_platform.cross_founding.forms import BackerRegistrationForm, BackerAuthenticationForm
 
@@ -39,5 +38,4 @@ urlpatterns = patterns('',
     url(r'^accounts/', include(regUrls)),
     url(r'^accounts/profile', 'cross_founding_platform.cross_founding.views.profile'),
     url(r'^admin/', include(admin.site.urls)),
-    (r'^accounts/', include('allauth.urls')),
 )

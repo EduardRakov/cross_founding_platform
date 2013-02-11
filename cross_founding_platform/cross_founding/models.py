@@ -1,3 +1,4 @@
+from twisted.test.test_amp import tempSelfSigned
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
@@ -33,18 +34,10 @@ class Backer(models.Model):
         help_text=_('This user was registered via twitter'))
     facebook_user = models.BooleanField(_('facebook user'), default=False,
         help_text=_('This user was registered via facebook'))
-
-    class Meta:
-        db_table = u'backers'
-
-class FacebookAccessToken(models.Model):
-    facebook_id = models.BigIntegerField(blank=True, unique=True, null=True)
+    third_party_id = models.BigIntegerField(blank=True, unique=True, null=True, default=None)
     access_token = models.TextField(blank=True, null=True)
     expire_token = models.IntegerField(blank=True, null=True)
-    backer = models.OneToOneField(Backer, null=True, blank=True, unique=True)
-
-    class Meta:
-        db_table = u'facebookAccessTokens'
+    secret_token = models.TextField(blank=True, null=True)
 
     def disconnect_facebook(self):
         self.access_token = None
@@ -53,15 +46,8 @@ class FacebookAccessToken(models.Model):
     def clear_access_token(self):
         self.access_token = None
         self.save()
-
-class TwitterAccessToken(models.Model):
-    twitter_id = models.BigIntegerField(blank=True, unique=True, null=True)
-    access_token = models.TextField(blank=True, null=True)
-    secret_token = models.TextField(blank=True, null=True)
-    backer = models.OneToOneField(Backer, null=True, blank=True, unique=True)
-
-    class Meta:
-        db_table = u'twitterAccessTokens'
+    def __unicode__(self):
+        return u'%s' % self.user
 
     def disconnect_facebook(self):
         self.access_token = None
@@ -70,3 +56,6 @@ class TwitterAccessToken(models.Model):
     def clear_access_token(self):
         self.access_token = None
         self.save()
+
+    class Meta:
+        db_table = u'backers'

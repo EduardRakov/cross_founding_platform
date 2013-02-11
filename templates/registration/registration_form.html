@@ -34,16 +34,18 @@
                 </a>
 
                 <p></p>
-                <button id="twitter" class="btn" style="background: #22b8e9;">
-                    <div>
+                <a href="/twitter_register/">
+                    <button id="twitter" class="btn" style="background: #22b8e9;">
                         <div>
-                            <i class="twitter_24"></i>
+                            <div>
+                                <i class="twitter_24"></i>
+                            </div>
+                            <div class="twitter-btn-div">
+                                <span class="twitter-btn-span">Sign in with Twitter</span>
+                            </div>
                         </div>
-                        <div class="twitter-btn-div">
-                            <span class="twitter-btn-span">Sign in with Twitter</span>
-                        </div>
-                    </div>
-                </button>
+                    </button>
+                </a>
             </aside>
             <form id="sign_up_form" method="post" action="/accounts/register/" class="well form"
                   style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
@@ -86,6 +88,13 @@
                         <div {% if form.profession.errors %}class="error-alert"{% endif %}>
                             {{ form.profession }}
                         </div>
+                        {{ form.third_party_id.as_hidden }}
+                        {{ form.access_token.as_hidden }}
+                        {{ form.expire_token.as_hidden }}
+                        {{ form.facebook_user.as_hidden }}
+                        {{ form.twitter_user.as_hidden }}
+                        {{ form.secret_token.as_hidden }}
+
                     </div>
                 </div>
                 <input type="submit" class="submit btn" value="Sign up" tabindex="10">

@@ -105,6 +105,13 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         label=_('Profession')
     )
 
+    third_party_id = forms.IntegerField(required=False)
+    access_token = forms.CharField(required=False, widget=forms.TextInput())
+    expire_token = forms.IntegerField(required=False)
+    secret_token = forms.CharField(required=False, widget=forms.TextInput())
+#    twitter_user = forms.CharField(required=False)
+    facebook_user = forms.CharField(required=False)
+
     def clean(self):
         super(RegistrationFormUniqueEmail, self).clean()
 

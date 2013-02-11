@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
+from django.core.context_processors import request
 import simplejson
 import urllib
 import cgi
 import oauth2 as oauth
 from datetime import datetime
-from urlparse import parse_qsl
+from urlparse import parse_qsl, urlparse
 
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
@@ -21,10 +23,13 @@ from django.contrib.auth.tokens import default_token_generator
 
 from cross_founding_platform import settings
 from cross_founding_platform.cross_founding.forms import PasswordRecoveryForm, EmailRecoveryForm, BackerRegistrationForm
+from cross_founding_platform.cross_founding.models import Backer
 
+@login_required
 def profile(request):
-    return render_to_response("profile.html")
+    user_profile = request.user.get_profile()
 
+    return render_to_response("profile.html", {'user': user_profile})
 
 @sensitive_post_parameters()
 @never_cache
@@ -37,6 +42,9 @@ def login(request, template_name='registration/login.html',
 
     if request.method == "POST":
         form = authentication_form(data=request.POST)
+
+        if 'stay_signed_in' in request.POST:
+           request.session.set_expiry(True)
 
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):
@@ -158,41 +166,50 @@ def facebook_register(request):
         return redirect(settings.FACEBOOK_OAUTH_DIALOG_URL + urllib.urlencode(key_value_perm_state))
 
     else:
-        code = request.GET['code']
-        get_token = {
-            'client_id': settings.FACEBOOK_APP_ID,
-            'redirect_uri': settings.FACEBOOK_REDIRECT_URI,
-            'client_secret': settings.FACEBOOK_APP_SECRET,
-            'code': code
-        }
+        try:
+            code = request.GET['code']
+            get_token = {
+                'client_id': settings.FACEBOOK_APP_ID,
+                'redirect_uri': settings.FACEBOOK_REDIRECT_URI,
+                'client_secret': settings.FACEBOOK_APP_SECRET,
+                'code': code
+            }
 
-        response = cgi.parse_qs(urllib.urlopen(settings.FACEBOOK_ACCESS_TOKEN_URL + urllib.urlencode(get_token)).read())
+            response = cgi.parse_qs(urllib.urlopen(settings.FACEBOOK_ACCESS_TOKEN_URL + urllib.urlencode(get_token)).read())
 
-        access_token = response['access_token'][0]
-        get_data_url = settings.FACEBOOK_GRAPH_API_URL + access_token
+            access_token = response['access_token'][0]
+            get_data_url = settings.FACEBOOK_GRAPH_API_URL + access_token
 
-        json_data = urllib.urlopen(get_data_url).read()
-        data = simplejson.loads(json_data)
+            json_data = urllib.urlopen(get_data_url).read()
+            data = simplejson.loads(json_data)
 
-        facebook_data = {
-            'username': data['username'],
-            'first_name': data['first_name'],
-            'last_name': data['last_name'],
-            'email': data['email']
-        }
+            data['gender'] = 2 if data['gender'] == 'male' else 3
 
-        data['gender'] = 2 if data['gender'] == 'male' else 3
+            facebook_data = {
+                'username': data['username'],
+                'first_name': data['first_name'],
+                'last_name': data['last_name'],
+                'email': data['email'],
+                'gender': data['gender'],
+                'third_party_id': data['id'],
+                'access_token': access_token,
+                'expire_token': response['expires'][0],
+                'facebook_user': True
+                }
 
-        birthday = str(datetime.date(datetime.strptime(data['birthday'], "%m/%d/%Y"))).split('-')
+            birthday = str(datetime.date(datetime.strptime(data['birthday'], "%m/%d/%Y"))).split('-')
 
-        facebook_data.update({'year_dob': birthday[0]})
-        facebook_data.update({'month_dob': birthday[1]})
-        facebook_data.update({'day_dob': birthday[2]})
+            facebook_data.update({'year_dob': birthday[0]})
+            facebook_data.update({'month_dob': birthday[1]})
+            facebook_data.update({'day_dob': birthday[2]})
 
-        form = BackerRegistrationForm(facebook_data)
+            form = BackerRegistrationForm(facebook_data)
 
-        return render(request, 'registration/registration_form.html', {'form': form})
+            return render(request, 'registration/registration_form.html', {'form': form})
 
+        except KeyError:
+
+            return HttpResponseRedirect('/accounts/register')
 
 def twitter_register(request):
     if not 'oauth_verifier' in request.GET:
@@ -213,24 +230,39 @@ def twitter_register(request):
 
         oauth_client = oauth.Client(oauth_consumer, token)
         resp, content = oauth_client.request(settings.TWITTER_ACCESS_TOKEN_URL, method='POST',
+
             body='oauth_verifier=%s' % request.GET['oauth_verifier'])
 
-        access_token = dict(parse_qsl(content))
+        try:
+            access_token = dict(parse_qsl(content))
 
-        json_data_url = 'https://api.twitter.com/1/users/show.json?screen_name=' + access_token['screen_name'] + '&amp;include_entities=true'
-        json_data = urllib.urlopen(json_data_url).read()
+#            TwitterAccessToken.objects.create(
+#                twitter_id=access_token['user_id'],
+#                access_token=access_token['oauth_token'],
+#                secret_token=access_token['oauth_token_secret']
+#            )
 
-        data = simplejson.loads(json_data)
-        twitter_full_name = data['name'].split(' ')
+            json_data_url = 'https://api.twitter.com/1/users/show.json?screen_name=' + access_token['screen_name'] + '&amp;include_entities=true'
+            json_data = urllib.urlopen(json_data_url).read()
 
-        twitter_last_name = twitter_full_name[-1] if len(twitter_full_name) > 1 else ''
+            data = simplejson.loads(json_data)
+            twitter_full_name = data['name'].split(' ')
 
-        twitter_data = {
-            'username': data['screen_name'],
-            'first_name': twitter_full_name[0],
-            'last_name': twitter_last_name
-        }
+            twitter_last_name = twitter_full_name[-1] if len(twitter_full_name) > 1 else ''
 
-        form = BackerRegistrationForm(twitter_data)
+            twitter_data = {
+                'username': data['screen_name'],
+                'first_name': twitter_full_name[0],
+                'last_name': twitter_last_name,
+                'third_party_id': access_token['user_id'],
+                'access_token': access_token['oauth_token'],
+                'secret_token': access_token['oauth_token_secret'],
+                'twitter_user': True
+            }
 
-        return render(request, 'registration/registration_form.html', {'form': form})
+            form = BackerRegistrationForm(twitter_data)
+
+            return render(request, 'registration/registration_form.html', {'form': form})
+        except KeyError:
+
+            return HttpResponseRedirect('/accounts/register')
