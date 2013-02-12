@@ -1,8 +1,6 @@
 from unittest import TestCase
 from registration.models import RegistrationProfile
 
-from splinter import Browser
-
 from django.contrib.auth.models import User
 from django.core import mail
 from django.test import Client
