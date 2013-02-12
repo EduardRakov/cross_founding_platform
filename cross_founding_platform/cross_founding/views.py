@@ -1,5 +1,3 @@
-from django.contrib.auth.decorators import login_required
-from django.core.context_processors import request
 import simplejson
 import urllib
 import cgi
@@ -16,6 +14,8 @@ from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout
 from django.core.urlresolvers import reverse
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url, base36_to_int
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
@@ -44,7 +44,7 @@ def login(request, template_name='registration/login.html',
         form = authentication_form(data=request.POST)
 
         if 'stay_signed_in' in request.POST:
-           request.session.set_expiry(True)
+           request.session.set_expiry(1209600)
 
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):
@@ -183,6 +183,14 @@ def facebook_register(request):
             json_data = urllib.urlopen(get_data_url).read()
             data = simplejson.loads(json_data)
 
+            if Backer.objects.filter(third_party_id=data['id']):
+                backer = auth.authenticate(token=access_token, third_party_id=data['id'])
+
+                if backer and backer.is_active:
+                    auth_login(request, backer)
+
+                    return HttpResponseRedirect('/accounts/profile/')
+
             data['gender'] = 2 if data['gender'] == 'male' else 3
 
             facebook_data = {
@@ -195,7 +203,7 @@ def facebook_register(request):
                 'access_token': access_token,
                 'expire_token': response['expires'][0],
                 'facebook_user': True
-                }
+            }
 
             birthday = str(datetime.date(datetime.strptime(data['birthday'], "%m/%d/%Y"))).split('-')
 
@@ -236,17 +244,19 @@ def twitter_register(request):
         try:
             access_token = dict(parse_qsl(content))
 
-#            TwitterAccessToken.objects.create(
-#                twitter_id=access_token['user_id'],
-#                access_token=access_token['oauth_token'],
-#                secret_token=access_token['oauth_token_secret']
-#            )
-
             json_data_url = 'https://api.twitter.com/1/users/show.json?screen_name=' + access_token['screen_name'] + '&amp;include_entities=true'
             json_data = urllib.urlopen(json_data_url).read()
 
             data = simplejson.loads(json_data)
             twitter_full_name = data['name'].split(' ')
+
+            if Backer.objects.filter(third_party_id=data['id']):
+                backer = auth.authenticate(token=access_token['oauth_token'], third_party_id=access_token['user_id'])
+
+                if backer and backer.is_active:
+                    auth_login(request, backer)
+
+                    return HttpResponseRedirect('/accounts/profile/')
 
             twitter_last_name = twitter_full_name[-1] if len(twitter_full_name) > 1 else ''
 

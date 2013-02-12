@@ -109,7 +109,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     access_token = forms.CharField(required=False, widget=forms.TextInput())
     expire_token = forms.IntegerField(required=False)
     secret_token = forms.CharField(required=False, widget=forms.TextInput())
-#    twitter_user = forms.CharField(required=False)
+    twitter_user = forms.CharField(required=False)
     facebook_user = forms.CharField(required=False)
 
     def clean(self):

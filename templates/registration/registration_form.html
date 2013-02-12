@@ -88,13 +88,14 @@
                         <div {% if form.profession.errors %}class="error-alert"{% endif %}>
                             {{ form.profession }}
                         </div>
-                        {{ form.third_party_id.as_hidden }}
-                        {{ form.access_token.as_hidden }}
-                        {{ form.expire_token.as_hidden }}
-                        {{ form.facebook_user.as_hidden }}
-                        {{ form.twitter_user.as_hidden }}
-                        {{ form.secret_token.as_hidden }}
-
+                        <div>
+                            {{ form.third_party_id.as_hidden }}
+                            {{ form.access_token.as_hidden }}
+                            {{ form.expire_token.as_hidden }}
+                            {{ form.facebook_user.as_hidden }}
+                            {{ form.twitter_user.as_hidden }}
+                            {{ form.secret_token.as_hidden }}
+                        </div>
                     </div>
                 </div>
                 <input type="submit" class="submit btn" value="Sign up" tabindex="10">
