@@ -68,14 +68,20 @@ class BackerRegistrationCase(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.request['REQUEST_METHOD'], 'POST')
 
-    def test_should_send_notification_email_after_backer_successful_registration(self):
+    def test_should_send_notification_email_after_backer_successful_registration_and_for_reset_password(self):
         data = {'username': 'joedoe',
                 'email': 'joe@example.com',
                 'password1': 'secret',
                 'first_name': 'Joe',
                 'last_name': 'Doe',
                 'year_dob': '1900', 'month_dob': '01', 'day_dob': '01',
-                'gender': '1'
+                'gender': '1',
+                'twitter_user': '',
+                'facebook_user': '',
+                'access_token': '',
+                'secret_token': '',
+                'expire_token': '',
+                'third_party_id': ''
         }
 
         self.assertEquals(len(mail.outbox), 0)
@@ -85,9 +91,6 @@ class BackerRegistrationCase(TestCase):
         user = User.objects.get(username='joedoe')
         user.is_active = True
         user.save()
-
-        response = self.client.post(LOGIN_URI, {'username': 'joedoe', 'password': 'secret'})
-        self.assertEqual(response.status_code, 302)
 
         response = self.client.post(PASSWORD_RESET_URI, {'email': 'joe@example.com'})
         self.assertEqual(response.status_code, 302)
