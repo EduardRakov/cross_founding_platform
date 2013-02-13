@@ -30,6 +30,11 @@ urlpatterns = patterns('',
         name='auth_login',
     ),
 
+    url(r'^accounts/logout/$',
+        'cross_founding_platform.cross_founding.views.logout',
+        {'template_name': 'registration/logout.html'},
+        name='auth_logout'),
+
     url(r'^facebook_register/', 'cross_founding_platform.cross_founding.views.facebook_register', name='facebook_register'),
 
     url(r'^twitter_register/', 'cross_founding_platform.cross_founding.views.twitter_register', name='twitter_register'),

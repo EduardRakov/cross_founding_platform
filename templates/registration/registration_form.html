@@ -17,7 +17,7 @@
     {% endif %}
     <section class="main-section" style="">
         <article class="my-article">
-            <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
+            <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up to CFP</h1>
             <aside class="main-aside">
 
                 <a href="{% url facebook_register %}">
@@ -54,31 +54,22 @@
                 {% url registration_register %}
             {% endif %}
             " class="well form"
-                  style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
+                  style="margin-bottom: 10%;float: right; width:500px">
+                {% csrf_token %}
                 <div class="main">
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">
                         {{ form.username.label }}
-                        <div {% if form.username.errors %}class="error-alert"{% endif %}>
-                            {{ form.username }}
-                        </div>
+                        <div {% if form.username.errors %}class="error-alert"{% endif %}>{{ form.username }}</div>
                         {{ form.password1.label }}
-                        <div {% if form.password1.errors %}class="error-alert"{% endif %}>
-                            {{ form.password1 }}
-                        </div>
+                        <div {% if form.password1.errors %}class="error-alert"{% endif %}>{{ form.password1 }}</div>
                         {{ form.first_name.label }}
-                        <div {% if form.first_name.errors %}class="error-alert"{% endif %}>
-                            {{ form.first_name }}
-                        </div>
+                        <div {% if form.first_name.errors %}class="error-alert"{% endif %}>{{ form.first_name }}</div>
                         {{ form.gender.label }}
-                        <div>
-                            {{ form.gender }}
-                        </div>
+                        <div>{{ form.gender }}</div>
                     </div>
                     <div class="right-block" style="float: right">
                         {{ form.email.label }}
-                        <div {% if form.email.errors %}class="error-alert"{% endif %}>
-                            {{ form.email }}
-                        </div>
+                        <div {% if form.email.errors %}class="error-alert"{% endif %}>{{ form.email }}</div>
                         {{ form|show_label:'Date of birth' }}
                         <div style="height: 50px" {% if form.errors.date_of_birth %}class="error-alert"{% endif %}>
                             {{ form.day_dob }}
@@ -87,13 +78,9 @@
                         </div>
                         <p></p>
                         {{ form.last_name.label }}
-                        <div {% if form.last_name.errors %}class="error-alert"{% endif %}>
-                            {{ form.last_name }}
-                        </div>
+                        <div {% if form.last_name.errors %}class="error-alert"{% endif %}>{{ form.last_name }}</div>
                         {{ form.profession.label }}
-                        <div {% if form.profession.errors %}class="error-alert"{% endif %}>
-                            {{ form.profession }}
-                        </div>
+                        <div {% if form.profession.errors %}class="error-alert"{% endif %}>{{ form.profession }}</div>
                         <div class="hidden_fields">
                             {{ form.third_party_id.as_hidden }}
                             {{ form.access_token.as_hidden }}

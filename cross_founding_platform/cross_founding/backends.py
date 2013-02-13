@@ -16,9 +16,7 @@ class ThirdPartyRegisterBackend(DefaultBackend):
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
-        new_user = RegistrationProfile.objects.create_inactive_user(username, email,
-            password, site,
-            send_email=False)
+        new_user = RegistrationProfile.objects.create_inactive_user(username, email, password, site, send_email=False)
         new_user.is_active = True
         new_user.save()
 
@@ -32,7 +30,6 @@ class ThirdPartyRegisterBackend(DefaultBackend):
         return 'profile', (), {}
 
 class ThirdPartyAuthBackend(object):
-
     def authenticate(self, token=None, third_party_id=None):
         try:
             backer = Backer.objects.get(third_party_id=third_party_id, access_token=token)

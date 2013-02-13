@@ -3,32 +3,34 @@ import urllib
 import cgi
 import oauth2 as oauth
 from datetime import datetime
-from urlparse import parse_qsl, urlparse
+from urlparse import parse_qsl
 
-from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
+from django.contrib import auth
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.contrib.sites.models import get_current_site
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect, render, get_object_or_404
-from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
+from django.shortcuts import render_to_response, redirect, render
 from django.core.urlresolvers import reverse
 from django.template.response import TemplateResponse
 from django.utils.http import is_safe_url, base36_to_int
-from django.contrib import auth
-from django.contrib.auth.decorators import login_required
+from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.debug import sensitive_post_parameters
-from django.contrib.auth.tokens import default_token_generator
 
 from cross_founding_platform import settings
 from cross_founding_platform.cross_founding.forms import PasswordRecoveryForm, EmailRecoveryForm, BackerRegistrationForm
 from cross_founding_platform.cross_founding.models import Backer
 
+STAY_SIGNED_AGE = 1209600
+
 @login_required
 def profile(request):
     user_profile = request.user.get_profile()
-
     return render_to_response("profile.html", {'user': user_profile})
 
 @sensitive_post_parameters()
@@ -44,7 +46,7 @@ def login(request, template_name='registration/login.html',
         form = authentication_form(data=request.POST)
 
         if 'stay_signed_in' in request.POST:
-           request.session.set_expiry(1209600)
+           request.session.set_expiry(STAY_SIGNED_AGE)
 
         if form.is_valid():
             if not is_safe_url(url=redirect_to, host=request.get_host()):
@@ -74,6 +76,36 @@ def login(request, template_name='registration/login.html',
     return TemplateResponse(request, template_name, context,
         current_app=current_app)
 
+def logout(request, next_page=None,
+           template_name='registration/login.html',
+           redirect_field_name=REDIRECT_FIELD_NAME,
+           current_app=None, extra_context=None):
+
+    auth_logout(request)
+
+    if redirect_field_name in request.REQUEST:
+        next_page = request.REQUEST[redirect_field_name]
+
+        if not is_safe_url(url=next_page, host=request.get_host()):
+            next_page = request.path
+
+    if next_page:
+
+        return HttpResponseRedirect(next_page)
+
+    current_site = get_current_site(request)
+    context = {
+        'site': current_site,
+        'site_name': current_site.name,
+        'title': _('Logged out')
+    }
+    if extra_context is not None:
+        context.update(extra_context)
+
+#    return TemplateResponse(request, template_name, context,
+#        current_app=current_app)
+
+    return HttpResponseRedirect('/accounts/login')
 
 @sensitive_post_parameters()
 @never_cache
@@ -121,6 +153,7 @@ def password_reset_confirm(request, uidb36=None, token=None,
 
     return TemplateResponse(request, template_name, context, current_app=current_app)
 
+
 @csrf_protect
 def password_reset(request, is_admin_site=False,
                    template_name='registration/password_reset_form.html',
@@ -144,20 +177,22 @@ def password_reset(request, is_admin_site=False,
                 'email_template_name': email_template_name,
                 'subject_template_name': subject_template_name,
                 'request': request,
-                }
+            }
+
             if is_admin_site:
                 opts = dict(opts, domain_override=request.get_host())
             form.save(**opts)
+
             return HttpResponseRedirect(post_reset_redirect)
     else:
         form = password_reset_form()
-    context = {
-        'form': form,
-        }
+    context = {'form': form, }
+
     if extra_context is not None:
         context.update(extra_context)
     return TemplateResponse(request, template_name, context,
         current_app=current_app)
+
 
 def facebook_register(request):
     if not 'code' in request.GET:
@@ -175,7 +210,8 @@ def facebook_register(request):
                 'code': code
             }
 
-            response = cgi.parse_qs(urllib.urlopen(settings.FACEBOOK_ACCESS_TOKEN_URL + urllib.urlencode(get_token)).read())
+            response = cgi.parse_qs(
+                urllib.urlopen(settings.FACEBOOK_ACCESS_TOKEN_URL + urllib.urlencode(get_token)).read())
 
             access_token = response['access_token'][0]
             get_data_url = settings.FACEBOOK_GRAPH_API_URL + access_token
@@ -206,7 +242,6 @@ def facebook_register(request):
             }
 
             birthday = str(datetime.date(datetime.strptime(data['birthday'], "%m/%d/%Y"))).split('-')
-
             facebook_data.update({'year_dob': birthday[0]})
             facebook_data.update({'month_dob': birthday[1]})
             facebook_data.update({'day_dob': birthday[2]})
@@ -216,8 +251,8 @@ def facebook_register(request):
             return render(request, 'registration/registration_form.html', {'form': form})
 
         except KeyError:
-
             return HttpResponseRedirect('/accounts/register')
+
 
 def twitter_register(request):
     if not 'oauth_verifier' in request.GET:
@@ -276,4 +311,3 @@ def twitter_register(request):
         except KeyError:
 
             return HttpResponseRedirect('/accounts/register')
-

@@ -113,8 +113,6 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     twitter_user = forms.CharField(required=False)
     facebook_user = forms.CharField(required=False)
 
-
-
     def clean(self):
         super(RegistrationFormUniqueEmail, self).clean()
 
@@ -180,6 +178,7 @@ class BackerAuthenticationForm(AuthenticationForm):
                         "enabled. Cookies are required for logging in."),
         'inactive': _("This account is inactive."),
         }
+
 
 class PasswordRecoveryForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_(u'New password'), min_length=6, widget=forms.PasswordInput,

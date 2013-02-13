@@ -35,14 +35,13 @@ USE_TZ = True
 
 
 MEDIA_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/templates'
-
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = '/home/eduardr/PycharmProjects/cross_founding_platform/cross_founding_platform/cross_founding/static_collected'
-
 STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/accounts/profile'
+LOGIN_URL = '/accounts/login'
 
 STATICFILES_DIRS = (
     '/home/eduardr/PycharmProjects/cross_founding_platform/templates',
@@ -101,11 +100,9 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     #'django.contrib.admindocs',
     #'south',
-#    'openid',
     'oauth2',
     'registration',
     'django_nose',
-#    'auth_remember',
     'cross_founding_platform.cross_founding',
 )
 
