@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'cross_founding_platform.wsgi.application'
 TEMPLATE_DIRS = ('/home/eduardr/PycharmProjects/cross_founding_platform/templates',)
 
 AUTHENTICATION_BACKENDS = (
-    'cross_founding_platform.cross_founding.backends.ThirdPartyBackend',
+    'cross_founding_platform.cross_founding.backends.ThirdPartyAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
     )
 

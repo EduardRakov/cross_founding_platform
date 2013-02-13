@@ -11,6 +11,7 @@ from django.template import loader
 import datetime
 
 from registration.forms import RegistrationFormUniqueEmail
+from registration.models import RegistrationProfile
 
 from cross_founding_platform.cross_founding.models import Backer
 
@@ -112,6 +113,8 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
     twitter_user = forms.CharField(required=False)
     facebook_user = forms.CharField(required=False)
 
+
+
     def clean(self):
         super(RegistrationFormUniqueEmail, self).clean()
 
@@ -143,6 +146,22 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         return year_dob
 
 
+    def save(self, profile_callback=None):
+        new_user = RegistrationProfile.objects.create_inactive_user(username=self.cleaned_data['username'],
+            password=self.cleaned_data['password1'],
+            email=self.cleaned_data['email'],
+            send_email=False,
+            profile_callback=profile_callback)
+
+        new_user.is_active = True
+        new_user.group = self.cleaned_data['group']
+        new_user.first_name = self.cleaned_data['first_name']
+        new_user.last_name = self.cleaned_data['last_name']
+        new_user.save()
+
+        return new_user
+
+
 class BackerAuthenticationForm(AuthenticationForm):
     username = forms.CharField(label=_("Username"), max_length=30,
         widget=forms.TextInput(attrs={'class': 'input-block-level'}),
@@ -155,6 +174,12 @@ class BackerAuthenticationForm(AuthenticationForm):
     stay_signed_in = forms.BooleanField(required=False, initial=False,
         widget=forms.CheckboxInput(attrs={'class': 'login-checkbox'}))
 
+    error_messages = {
+        'invalid_login': _("Please enter a correct username and password."),
+        'no_cookies': _("Your Web browser doesn't appear to have cookies "
+                        "enabled. Cookies are required for logging in."),
+        'inactive': _("This account is inactive."),
+        }
 
 class PasswordRecoveryForm(SetPasswordForm):
     new_password1 = forms.CharField(label=_(u'New password'), min_length=6, widget=forms.PasswordInput,

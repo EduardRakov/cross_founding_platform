@@ -1,7 +1,9 @@
 from twisted.test.test_amp import tempSelfSigned
 from django.db import models
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User
+from registration.models import RegistrationManager
 
 from south.modelsinspector import add_introspection_rules
 

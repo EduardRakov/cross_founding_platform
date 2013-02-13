@@ -1,17 +1,13 @@
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import render_to_response
-from django.contrib.auth.models import User
+from django.contrib import auth
 from django.dispatch import receiver
+
+from registration.signals import user_registered
 
 from cross_founding_platform.cross_founding.forms import BackerRegistrationForm
 from cross_founding_platform.cross_founding.models import Backer
 
-from registration.signals import user_registered
-from cross_founding_platform.cross_founding.views import facebook_register,  twitter_register
-
 @receiver(user_registered)
 def backer_registration(sender, user, request, **kwargs):
-
     form = BackerRegistrationForm(request.POST)
 
     user.first_name = form.data["first_name"]
@@ -30,4 +26,10 @@ def backer_registration(sender, user, request, **kwargs):
     backer.third_party_id = form.data['third_party_id']if form.data['third_party_id'] != '' else None
     backer.save()
 
+
+def login_on_activation(sender, user, request, **kwargs):
+    user.backend='cross_founding_platform.cross_founding.backends.ThirdPartyAuthBackend'
+    auth.login(request,user)
+
 user_registered.connect(backer_registration)
+user_registered.connect(login_on_activation)

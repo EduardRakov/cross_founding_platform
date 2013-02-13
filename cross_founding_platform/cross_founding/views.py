@@ -9,7 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from django.contrib.auth.models import User
 from django.contrib.sites.models import get_current_site
 from django.http import HttpResponseRedirect
-from django.shortcuts import render_to_response, redirect, render
+from django.shortcuts import render_to_response, redirect, render, get_object_or_404
 from django.contrib.auth import REDIRECT_FIELD_NAME, login as auth_login, logout as auth_logout
 from django.core.urlresolvers import reverse
 from django.template.response import TemplateResponse
@@ -276,3 +276,4 @@ def twitter_register(request):
         except KeyError:
 
             return HttpResponseRedirect('/accounts/register')
+

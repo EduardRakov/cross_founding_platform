@@ -19,38 +19,35 @@
         <article class="my-article" style="height: 350px; margin-top: 27%">
             <h1 class="header" style="padding-bottom: 30px; font-family: bentonsans, 'Times New Roman', cursive">Sign in to CFP</h1>
             <aside style="width: 250px;">
-                <a href="/facebook_register/">
-                    <button id="facebook" class="btn" style="width: 243px; height: 43px; background:#3b5998; margin-bottom: 10px">
-                        <i class="facebook_24"></i>
-                        <span style="text-shadow:none; font-size: large">Sign in with Facebook</span>
-                    </button>
-                </a>
-                <a href="/twitter_register/">
-                    <button id="twitter" class="btn" style="width: 243px; height: 43px; background: #22b8e9; ">
-                        <i class="twitter_24"></i>
-                        <span style="text-shadow:none; font-size: large; margin-left: 4px">Sign in with Twitter</span>
-                    </button>
-                </a>
+                <button id="facebook" class="btn" style="width: 243px; height: 43px; background:#3b5998; margin-bottom: 10px">
+                    <i class="facebook_24"></i>
+                    <span style="text-shadow:none; font-size: large">Sign in with Facebook</span>
+                </button>
+
+                <button id="twitter" class="btn" style="width: 243px; height: 43px; background: #22b8e9; ">
+                    <i class="twitter_24"></i>
+                    <span style="text-shadow:none; font-size: large; margin-left: 4px">Sign in with Twitter</span>
+                </button>
             </aside>
 
             <div class="main">
                 <form id="sign_in_form" action="" method="post" class="well"
                       style="margin-top: -110px; padding-top: 0px; height: 180px;">{% csrf_token %}
-                    <div {% if form.non_field_errors %}class="my-alert"{% endif %}>
+                    <div {% if form.non_field_errors %}class="error-alert"{% endif %}>
                         {{ form.username.label_tag }}
-                        <div {% if form.username.errors %}class="my-alert"{% endif %}>
+                        <div {% if form.username.errors %}class="error-alert"{% endif %}>
                             {{ form.username }}
                         </div>
                         {{ form.password.label_tag }}
-                        <div {% if form.password.errors %}class="my-alert"{% endif %}>
-                        {{ form.password }}
+                        <div {% if form.password.errors %}class="error-alert"{% endif %}>
+                            {{ form.password }}
                         </div>
                     </div>
                     <p> <a href="{% url auth_password_reset %}">Forgot</a> your password?
                         {{ form.stay_signed_in }} Stay signed in</p>
                     <div id="article_footer" style="background-color: #ffffff; height: 60px; float: left; margin-left: -300px; margin-top: 35px; width: 800px">
                         <div>
-                        <p class="my-span" style="margin-top: 20px;">Don't have a CFP account? <a href="{% url registration_register %}">Create one now.</a></p>
+                            <p class="my-span" style="margin-top: 20px;">Don't have a CFP account? <a href="{% url registration_register %}">Create one now.</a></p>
                         </div>
                         <input form="sign_in_form" type="submit" class="btn square" value="Sign in"
                                style="text-align:center;height: 40px; width: 80px; margin-left: 88%; margin-top: -60px">
@@ -60,6 +57,3 @@
         </article>
     </section>
 {% endblock %}
-
-
-

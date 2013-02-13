@@ -7,20 +7,20 @@
 
 {% block content %}
     {% if form.errors %}
-    <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
-        <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;" class="alert alert-error">
-            <div style="width: 100%; margin-bottom: -10px;">
-                 {{ form|display_errors:"day_dob, month_dob, year_dob"|safe }}
+        <div style="position: absolute;margin-left: 600px;margin-top: -15%;">
+            <div style="height: 100%; width: 100%; margin-top: 50px; margin-right: -45px;" class="alert alert-error">
+                <div style="width: 100%; margin-bottom: -10px;">
+                    {{ form|display_errors:"day_dob, month_dob, year_dob"|safe }}
+                </div>
             </div>
         </div>
-    </div>
     {% endif %}
     <section class="main-section" style="">
         <article class="my-article">
             <h1 class="header" style="font-family: bentonsans, 'Times New Roman', cursive">Sign up</h1>
             <aside class="main-aside">
 
-                <a href="/facebook_register/">
+                <a href="{% url facebook_register %}">
                     <button id="facebook" class="btn" style="background:#3b5998;">
                         <div>
                             <div>
@@ -34,7 +34,7 @@
                 </a>
 
                 <p></p>
-                <a href="/twitter_register/">
+                <a href="{% url twitter_register %}">
                     <button id="twitter" class="btn" style="background: #22b8e9;">
                         <div>
                             <div>
@@ -47,7 +47,13 @@
                     </button>
                 </a>
             </aside>
-            <form id="sign_up_form" method="post" action="/accounts/register/" class="well form"
+            <form id="sign_up_form" method="post" action="
+            {% if form.facebook_user.value or form.twitter_user.value %}
+                {% url third_party_register %}
+                {% else %}
+                {% url registration_register %}
+            {% endif %}
+            " class="well form"
                   style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
                 <div class="main">
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">
@@ -88,7 +94,7 @@
                         <div {% if form.profession.errors %}class="error-alert"{% endif %}>
                             {{ form.profession }}
                         </div>
-                        <div>
+                        <div class="hidden_fields">
                             {{ form.third_party_id.as_hidden }}
                             {{ form.access_token.as_hidden }}
                             {{ form.expire_token.as_hidden }}
@@ -99,6 +105,7 @@
                     </div>
                 </div>
                 <input type="submit" class="submit btn" value="Sign up" tabindex="10">
+
                 <div class="article-footer" style="">
                     <br>
                 <span class="my-span" style="float: left;">By clicking Create account, you agree to the <a href="#">terms
