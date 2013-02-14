@@ -6259,13 +6259,16 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 
 .twitter-btn-span{
     text-shadow:none;
-    font-size: large;
-    margin-left: 4px
+    font-size: larger;
+    /*margin-left: 4px*/
 }
 
 .facebook-btn-span{
     text-shadow:none;
-    font-size: large
+    font-size: medium;
+    margin-top: 2px;
+    margin-left: 100px;
+    !important
 }
 
 .article-footer{
@@ -6276,7 +6279,8 @@ button, input[type="reset"], input[type="text"], input[type="button"], input[typ
 
 .facebook-btn-div{
     margin-top:-25px;
-    width: 210px; margin-left: 0px;
+    width: 210px;
+
 }
 
 .twitter-btn-div{

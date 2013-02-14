@@ -23,12 +23,8 @@
                 <a href="{% url facebook_register %}">
                     <button id="facebook" class="btn" style="background:#3b5998;">
                         <div>
-                            <div>
-                                <i class="facebook_24"></i>
-                            </div>
-                            <div class="facebook-btn-div">
-                                <span class="facebook-btn-span">Sign in with Facebook</span>
-                            </div>
+                            <i class="facebook_24" style="float: left"></i>
+                            <span class="facebook-btn-span" style="margin-left: 10px; position: relative">with Facebook</span>
                         </div>
                     </button>
                 </a>
@@ -37,39 +33,44 @@
                 <a href="{% url twitter_register %}">
                     <button id="twitter" class="btn" style="background: #22b8e9;">
                         <div>
-                            <div>
-                                <i class="twitter_24"></i>
-                            </div>
-                            <div class="twitter-btn-div">
-                                <span class="twitter-btn-span">Sign in with Twitter</span>
-                            </div>
+                            <i class="twitter_24" style="float: left"></i>
+                            <span class="twitter-btn-span" style="margin-left: 10px; position: relative;">with Twitter</span>
                         </div>
                     </button>
                 </a>
             </aside>
             <form id="sign_up_form" method="post" action="
-            {% if form.facebook_user.value or form.twitter_user.value %}
-                {% url third_party_register %}
-                {% else %}
-                {% url registration_register %}
-            {% endif %}
-            " class="well form"
-                  style="margin-bottom: 10%;float: right; width:500px">
-                {% csrf_token %}
+                    {% if form.facebook_user.value or form.twitter_user.value %}
+                        {% url third_party_register %}
+                    {% else %}
+                        {% url registration_register %}
+                    {% endif %}
+                    " class="well form"
+                  style="margin-bottom: 10%;float: right; width:500px">{% csrf_token %}
                 <div class="main">
                     <div class="left-block" style="float: left; padding-right: 60%; margin-left: -230px;">
                         {{ form.username.label }}
-                        <div {% if form.username.errors %}class="error-alert"{% endif %}>{{ form.username }}</div>
+                        <div {% if form.username.errors %}class="error-alert"{% endif %}>
+                            {{ form.username }}
+                        </div>
                         {{ form.password1.label }}
-                        <div {% if form.password1.errors %}class="error-alert"{% endif %}>{{ form.password1 }}</div>
+                        <div {% if form.password1.errors %}class="error-alert"{% endif %}>
+                            {{ form.password1 }}
+                        </div>
                         {{ form.first_name.label }}
-                        <div {% if form.first_name.errors %}class="error-alert"{% endif %}>{{ form.first_name }}</div>
+                        <div {% if form.first_name.errors %}class="error-alert"{% endif %}>
+                            {{ form.first_name }}
+                        </div>
                         {{ form.gender.label }}
-                        <div>{{ form.gender }}</div>
+                        <div>
+                            {{ form.gender }}
+                        </div>
                     </div>
                     <div class="right-block" style="float: right">
                         {{ form.email.label }}
-                        <div {% if form.email.errors %}class="error-alert"{% endif %}>{{ form.email }}</div>
+                        <div {% if form.email.errors %}class="error-alert"{% endif %}>
+                            {{ form.email }}
+                        </div>
                         {{ form|show_label:'Date of birth' }}
                         <div style="height: 50px" {% if form.errors.date_of_birth %}class="error-alert"{% endif %}>
                             {{ form.day_dob }}
@@ -78,9 +79,13 @@
                         </div>
                         <p></p>
                         {{ form.last_name.label }}
-                        <div {% if form.last_name.errors %}class="error-alert"{% endif %}>{{ form.last_name }}</div>
+                        <div {% if form.last_name.errors %}class="error-alert"{% endif %}>
+                            {{ form.last_name }}
+                        </div>
                         {{ form.profession.label }}
-                        <div {% if form.profession.errors %}class="error-alert"{% endif %}>{{ form.profession }}</div>
+                        <div {% if form.profession.errors %}class="error-alert"{% endif %}>
+                            {{ form.profession }}
+                        </div>
                         <div class="hidden_fields">
                             {{ form.third_party_id.as_hidden }}
                             {{ form.access_token.as_hidden }}

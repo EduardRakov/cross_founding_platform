@@ -53,7 +53,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         widget=forms.TextInput(attrs={'tabindex': '7'}),
         max_length=30,
         min_length=2,
-        label=_('First Name'),
+        label=_('First name'),
         error_messages={
             'required': _(u'Input your first name'), 'invalid': _(u'First name must be letters only'),
             'max_length': _(u'Ensure the first name is less than or equal to %(limit_value)s.'),
@@ -66,7 +66,7 @@ class BackerRegistrationForm(RegistrationFormUniqueEmail):
         widget=forms.TextInput(attrs={'tabindex': '8'}),
         max_length=30,
         min_length=2,
-        label=_('Last Name'),
+        label=_('Last name'),
         error_messages={
             'required': _(u'Input your last name'), 'invalid': _(u'Last name must be letters only'),
             'max_length': _(u'Ensure the last name is less than or equal to %(limit_value)s.'),
